@@ -152,11 +152,11 @@ This version improves engagement on mobile:
 - Keeps the page general enough for multiple applications, not only one company.
 
 
-## Soft gray premium update
+## Premium reusable update
 
-- Softer gray-first visual direction.
-- More elegant copywriting, less direct/recruiter-facing.
-- Added premium supergraphic layers.
-- Skills show 3 items by default with "See more skills".
-- Recent learning track shows 3 items by default with "See more learning".
-- Better suited for multiple job applications, not only one company.
+- Softer and more reusable copywriting.
+- No hard recruiter-facing wording.
+- Added blue and purple accent direction.
+- First fold CTA buttons: Projects, Experience, Contact Me.
+- Skills section now has highlight + See more.
+- Certifications section now has highlight + See more.
