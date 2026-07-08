@@ -32,8 +32,7 @@
         <p class="hero-text" data-field="summary"></p>
 
         <div class="hero-actions">
-          <a href="#projects" class="button primary">Projects</a>
-          <a href="#experience" class="button secondary">Experience</a>
+          <a href="#projects" class="button primary">View Projects</a>
           <a href="#contact" class="button secondary">Contact Me</a>
         </div>
 
@@ -44,51 +43,46 @@
       </div>
 
       <aside class="hero-visual reveal">
-        <div class="orbit">
-          <div class="orbit-center">AI<br>Data<br>Product</div>
-          <span class="node n1">POI</span>
-          <span class="node n2">LLM</span>
-          <span class="node n3">GIS</span>
-          <span class="node n4">Web</span>
-          <span class="node n5">RAG</span>
+        <div class="orbit scatter-cloud">
+          <span class="node bubble-gis xl s1">GIS</span>
+          <span class="node bubble-poi lg s2">POI</span>
+          <span class="node bubble-product lg s3">Product</span>
+          <span class="node bubble-routing md s4">Routing</span>
+          <span class="node bubble-data md s5">Data</span>
+          <span class="node bubble-python sm s6">Python</span>
+          <span class="node bubble-llm sm s7">LLM</span>
         </div>
 
         <div class="role-switcher">
-          <p class="card-label">Portfolio lens</p>
-          <h2>Data, operations, and AI-assisted workflow.</h2>
+          <p class="card-label">Open to roles</p>
+          <div class="role-tabs">
+            <button class="role-tab active" data-role="vibe">Vibe Coding</button>
+            <button class="role-tab" data-role="data">Data Analyst</button>
+            <button class="role-tab" data-role="web">Web-adjacent</button>
+          </div>
           <p id="roleDescription">
-            A compact view of how my background in location data, operational analysis, and AI learning can translate into practical digital work.
+            I translate real operational problems into logic, workflows, and AI-assisted prototypes.
           </p>
         </div>
       </aside>
     </section>
-<section class="section compact theme-metrics" id="metrics">
+
+    <section class="section" id="metrics">
       <div class="metric-grid" id="metricsGrid"></div>
     </section>
 
-    <section class="section theme-fit" id="fit">
-      <div class="section-orb orb-fit"></div>
+    <section class="section" id="fit">
       <div class="section-header reveal">
         <p class="eyebrow">Role fit</p>
-        <h2>Where my background can contribute most naturally.</h2>
+        <h2>My strongest fit is where data, product, operations, and AI meet.</h2>
       </div>
       <div class="fit-grid" id="roleFitGrid"></div>
     </section>
 
-    <section class="section compact theme-proof" id="proof-map">
-      <div class="section-orb orb-proof"></div>
+    <section class="section alt" id="visuals">
       <div class="section-header reveal">
-        <p class="eyebrow">Working logic</p>
-        <h2>A simple view of how I approach a problem.</h2>
-      </div>
-      <div class="proof-flow" id="proofMapGrid"></div>
-    </section>
-
-    <section class="section alt theme-visuals" id="visuals">
-      <div class="section-orb orb-visuals"></div>
-      <div class="section-header reveal">
-        <p class="eyebrow">Capability map</p>
-        <h2>A visual snapshot of current strengths and emerging directions.</h2>
+        <p class="eyebrow">Visual snapshot</p>
+        <h2>A quick view of my capability mix.</h2>
       </div>
       <div class="visual-grid">
         <article class="chart-card reveal">
@@ -99,50 +93,47 @@
           <canvas id="capabilityChart" width="600" height="360"></canvas>
         </article>
         <article class="journey-card reveal">
-          <h3>Role evidence map</h3>
-          <p>Each role fit is supported by different evidence from my experience and learning path.</p>
-          <canvas id="roleEvidenceChart" width="520" height="420"></canvas>
+          <h3>Transition story</h3>
+          <div class="journey">
+            <div><span>01</span><p>GIS & spatial data foundation</p></div>
+            <div><span>02</span><p>Grab POI, routing, and operational data quality</p></div>
+            <div><span>03</span><p>AI training: GenAI, LLM, agents, RAG, vibe coding</p></div>
+            <div><span>04</span><p>Building toward AI-assisted internal tools and data products</p></div>
+          </div>
         </article>
       </div>
     </section>
 
-    <section class="section alt theme-projects" id="projects">
-      <div class="section-orb orb-projects"></div>
+    <section class="section alt" id="projects">
       <div class="section-header reveal">
-        <p class="eyebrow">Selected work</p>
-        <h2>Small but relevant examples of how I approach data and product problems.</h2>
+        <p class="eyebrow">Selected projects</p>
+        <h2>Projects that show how I think and solve problems.</h2>
       </div>
       <div class="project-list" id="projectList"></div>
     </section>
 
-    <section class="section theme-experience" id="experience">
-      <div class="section-orb orb-experience"></div>
+    <section class="section" id="experience">
       <div class="section-header reveal">
-        <p class="eyebrow">Experience</p>
-        <h2>Selected highlights, with more history available when needed.</h2>
+        <p class="eyebrow">Experience highlight</p>
+        <h2>From geospatial data to operational intelligence.</h2>
       </div>
       <div class="timeline" id="experienceTimeline"></div>
-      <div class="see-more-wrap"><button id="toggleExperience" class="button secondary">See more experience</button></div>
     </section>
 
-    <section class="section alt theme-skills" id="skills">
-      <div class="section-orb orb-skills"></div>
+    <section class="section alt" id="skills">
       <div class="section-header reveal">
         <p class="eyebrow">Skills</p>
-        <h2>Core capabilities, grouped for easier reading.</h2>
+        <h2>Hybrid skills across data, GIS, AI, and technical operations.</h2>
       </div>
       <div class="skills-grid" id="skillsGrid"></div>
-      <div class="see-more-wrap"><button id="toggleSkills" class="button secondary">See more skills</button></div>
     </section>
 
-    <section class="section theme-certifications" id="certifications">
-      <div class="section-orb orb-certs"></div>
+    <section class="section" id="certifications">
       <div class="section-header reveal">
         <p class="eyebrow">Certifications</p>
-        <h2>Recent learning track, with details available when needed.</h2>
+        <h2>Recent learning track.</h2>
       </div>
       <div class="cert-grid" id="certificationGrid"></div>
-      <div class="see-more-wrap"><button id="toggleCertifications" class="button secondary">See more certifications</button></div>
     </section>
 
     <section class="contact" id="contact">
