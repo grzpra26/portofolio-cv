@@ -168,23 +168,23 @@ h3 { font-size: 1.22rem; }
 }
 
 .orbit {
-  height: 360px;
-  position: relative;
+  min-height: 360px;
   background: linear-gradient(145deg, rgba(255,255,255,0.78), rgba(255,255,255,0.42));
   border: 1px solid var(--line);
   border-radius: 34px;
   box-shadow: var(--shadow);
-  overflow: hidden;
+  padding: 28px;
 }
 
-.scatter-cloud::before,
-.scatter-cloud::after {
-  display: none;
-  content: none;
+.scatter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  justify-items: center;
+  align-items: center;
 }
 
 .node {
-  position: absolute;
   width: 96px;
   height: 96px;
   display: flex;
@@ -193,16 +193,21 @@ h3 { font-size: 1.22rem; }
   border-radius: 50%;
   font-weight: 850;
   font-size: 1.05rem;
-  color: var(--text);
+  text-align: center;
   border: 1px solid rgba(31, 41, 51, 0.08);
   box-shadow: 0 10px 24px rgba(40, 32, 24, 0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-align: center;
 }
 
 .node:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 30px rgba(40, 32, 24, 0.16);
+}
+
+.empty {
+  visibility: hidden;
+  box-shadow: none;
+  border: none;
 }
 
 /* Bubble colors */
@@ -241,45 +246,21 @@ h3 { font-size: 1.22rem; }
   color: #1f2933;
 }
 
-/* Equal-size bubble positions — no overlap */
-.s1 { top: 42px; left: 42px; }       /* GIS */
-.s2 { top: 42px; right: 42px; }      /* POI */
-.s3 { top: 132px; left: 50%; transform: translateX(-50%); } /* Product */
-.s4 { top: 222px; right: 42px; }     /* Routing */
-.s5 { top: 222px; left: 42px; }      /* Data */
-.s6 { top: 224px; left: 50%; transform: translateX(-108%); } /* Python */
-.s7 { top: 224px; left: 50%; transform: translateX(8%); }     /* LLM */
-
-.s3:hover {
-  transform: translateX(-50%) translateY(-4px);
-}
-
-.s6:hover {
-  transform: translateX(-108%) translateY(-4px);
-}
-
-.s7:hover {
-  transform: translateX(8%) translateY(-4px);
-}
-
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .orbit {
-    height: 330px;
+    min-height: 320px;
+    padding: 20px;
+  }
+
+  .scatter-grid {
+    gap: 14px;
   }
 
   .node {
     width: 82px;
     height: 82px;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
   }
-
-  .s1 { top: 36px; left: 28px; }
-  .s2 { top: 36px; right: 28px; }
-  .s3 { top: 124px; left: 50%; transform: translateX(-50%); }
-  .s4 { top: 216px; right: 28px; }
-  .s5 { top: 216px; left: 28px; }
-  .s6 { top: 216px; left: 50%; transform: translateX(-108%); }
-  .s7 { top: 216px; left: 50%; transform: translateX(8%); }
 }
 
 .role-switcher, .metric-card, .fit-card, .chart-card, .journey-card, .project-card, .timeline-item, .skill-box, .cert-card {
