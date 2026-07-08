@@ -28,3 +28,9 @@ name	issuer	date	credential
 
 TAB: links
 label	url
+
+TAB: quickScan
+label	value	note
+
+TAB: proofMap
+stage	title	description

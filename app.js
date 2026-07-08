@@ -61,6 +61,32 @@ function renderMetrics(metrics = []) {
   `).join("");
 }
 
+function renderQuickScan(items = []) {
+  const grid = $("#quickScanGrid");
+  if (!grid) return;
+  grid.innerHTML = items.map((item, index) => `
+    <article class="quick-card reveal">
+      <span>0${index + 1}</span>
+      <h3>${escapeHtml(item.label)}</h3>
+      <strong>${escapeHtml(item.value)}</strong>
+      <p>${escapeHtml(item.note)}</p>
+    </article>
+  `).join("");
+}
+
+function renderProofMap(items = []) {
+  const grid = $("#proofMapGrid");
+  if (!grid) return;
+  grid.innerHTML = items.map((item, index) => `
+    <article class="proof-step reveal">
+      <span>${escapeHtml(item.stage)}</span>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.description)}</p>
+      ${index < items.length - 1 ? '<div class="flow-arrow">→</div>' : ''}
+    </article>
+  `).join("");
+}
+
 function renderRoleFit(items = []) {
   $("#roleFitGrid").innerHTML = items.map(item => `
     <article class="fit-card reveal">
@@ -71,7 +97,7 @@ function renderRoleFit(items = []) {
 }
 
 function renderProjects(projects = []) {
-  $("#projectList").innerHTML = projects.map(project => {
+  $("#projectList").innerHTML = projects.map((project, index) => {
     const tools = String(project.tools || "").split(",").map(t => t.trim()).filter(Boolean);
     return `
       <article class="project-card reveal">
@@ -79,6 +105,15 @@ function renderProjects(projects = []) {
           <p class="project-tag">${escapeHtml(project.tag)}</p>
           <h3>${escapeHtml(project.title)}</h3>
           <p>${escapeHtml(project.description)}</p>
+
+          <details class="case-details" ${index === 0 ? "open" : ""}>
+            <summary>Why this matters</summary>
+            <div class="case-grid">
+              <div><strong>Problem</strong><p>${escapeHtml(project.problem)}</p></div>
+              <div><strong>Approach</strong><p>${escapeHtml(project.approach)}</p></div>
+              <div><strong>Evidence</strong><p>${escapeHtml(project.evidence)}</p></div>
+            </div>
+          </details>
         </div>
         <div class="project-meta">
           ${tools.map(tool => `<span>${escapeHtml(tool)}</span>`).join("")}
@@ -90,7 +125,8 @@ function renderProjects(projects = []) {
 
 function renderExperience(items = []) {
   cachedExperience = items;
-  const visibleItems = showAllExperience ? items : items.slice(0, 3);
+  const defaultCount = window.innerWidth <= 700 ? 2 : 3;
+  const visibleItems = showAllExperience ? items : items.slice(0, defaultCount);
 
   $("#experienceTimeline").innerHTML = visibleItems.map((item, index) => {
     const bullets = String(item.bullets || "").split("|").map(b => b.trim()).filter(Boolean);
@@ -112,7 +148,7 @@ function renderExperience(items = []) {
       toggle.style.display = "none";
     } else {
       toggle.style.display = "inline-flex";
-      toggle.textContent = showAllExperience ? "Show less" : `See more experience (${items.length - 3} more)`;
+      toggle.textContent = showAllExperience ? "Show less" : `See more experience (${items.length - defaultCount} more)`;
     }
   }
 
@@ -197,6 +233,94 @@ function drawCapabilityChart(items = []) {
   });
 }
 
+function drawRoleEvidenceChart() {
+  const canvas = $("#roleEvidenceChart");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const cssWidth = canvas.clientWidth || 520;
+  const cssHeight = Math.max(300, Math.round(cssWidth * 0.75));
+  canvas.width = cssWidth * dpr;
+  canvas.height = cssHeight * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, cssWidth, cssHeight);
+
+  const cx = cssWidth / 2;
+  const cy = cssHeight / 2 + 12;
+  const maxR = Math.min(cssWidth, cssHeight) * 0.34;
+
+  const axes = [
+    { label: "Data", value: 90, angle: -Math.PI / 2 },
+    { label: "Ops", value: 85, angle: -Math.PI / 2 + (2 * Math.PI / 5) },
+    { label: "GIS", value: 90, angle: -Math.PI / 2 + (4 * Math.PI / 5) },
+    { label: "AI", value: 65, angle: -Math.PI / 2 + (6 * Math.PI / 5) },
+    { label: "Web", value: 40, angle: -Math.PI / 2 + (8 * Math.PI / 5) }
+  ];
+
+  ctx.strokeStyle = "rgba(31,41,51,0.12)";
+  ctx.lineWidth = 1;
+
+  [0.33, 0.66, 1].forEach(scale => {
+    ctx.beginPath();
+    axes.forEach((axis, i) => {
+      const x = cx + Math.cos(axis.angle) * maxR * scale;
+      const y = cy + Math.sin(axis.angle) * maxR * scale;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.stroke();
+  });
+
+  axes.forEach(axis => {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(axis.angle) * maxR, cy + Math.sin(axis.angle) * maxR);
+    ctx.stroke();
+
+    const lx = cx + Math.cos(axis.angle) * (maxR + 28);
+    const ly = cy + Math.sin(axis.angle) * (maxR + 28);
+    ctx.fillStyle = "#1f2933";
+    ctx.font = "800 13px Inter, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(axis.label, lx, ly);
+  });
+
+  const gradient = ctx.createRadialGradient(cx, cy, 8, cx, cy, maxR);
+  gradient.addColorStop(0, "rgba(177,60,47,0.45)");
+  gradient.addColorStop(1, "rgba(47,111,115,0.28)");
+
+  ctx.beginPath();
+  axes.forEach((axis, i) => {
+    const r = maxR * axis.value / 100;
+    const x = cx + Math.cos(axis.angle) * r;
+    const y = cy + Math.sin(axis.angle) * r;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = gradient;
+  ctx.fill();
+  ctx.strokeStyle = "#b13c2f";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  axes.forEach(axis => {
+    const r = maxR * axis.value / 100;
+    const x = cx + Math.cos(axis.angle) * r;
+    const y = cy + Math.sin(axis.angle) * r;
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = "#b13c2f";
+    ctx.fill();
+  });
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#657180";
+  ctx.font = "700 12px Inter, system-ui, sans-serif";
+  ctx.fillText("Evidence strength by role area", cx, 20);
+}
+
 function roundRect(ctx, x, y, w, h, r) {
   const radius = Math.min(r, h / 2, w / 2);
   ctx.beginPath();
@@ -243,14 +367,18 @@ function initInteractions() {
 async function main() {
   const data = await loadData();
   renderProfile(data.profile);
+  renderQuickScan(data.quickScan);
   renderMetrics(data.metrics);
   renderRoleFit(data.roleFit);
+  renderProofMap(data.proofMap);
   renderProjects(data.projects);
   renderExperience(data.experience);
   renderSkills(data.skills);
   renderCertifications(data.certifications);
   renderLinks(data.links);
   drawCapabilityChart(data.capabilities);
+    drawRoleEvidenceChart();
+  drawRoleEvidenceChart();
   $("#year").textContent = new Date().getFullYear();
   initInteractions();
 }
@@ -259,6 +387,7 @@ window.addEventListener("resize", async () => {
   try {
     const data = await loadData();
     drawCapabilityChart(data.capabilities);
+  drawRoleEvidenceChart();
   } catch (e) {}
 });
 

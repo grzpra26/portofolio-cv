@@ -18,8 +18,10 @@ function doGet() {
 
   const output = {
     profile: sheetToObject(ss.getSheetByName("profile")),
+    quickScan: sheetToArray(ss.getSheetByName("quickScan")),
     metrics: sheetToArray(ss.getSheetByName("metrics")),
     roleFit: sheetToArray(ss.getSheetByName("roleFit")),
+    proofMap: sheetToArray(ss.getSheetByName("proofMap")),
     capabilities: sheetToArray(ss.getSheetByName("capabilities")).map(row => ({
       label: row.label,
       value: Number(row.value)

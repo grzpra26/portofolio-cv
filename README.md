@@ -139,3 +139,14 @@ Good if you want a free public portfolio.
 - Experience section now shows top 3 highlights by default.
 - Button: "See more experience" reveals older experience.
 - Useful for multiple applications across Data Analyst, Location Intelligence, Product/Data Operations, AI-assisted workflow, and Web-adjacent roles.
+
+
+## Mobile story upgrade
+
+This version improves engagement on mobile:
+- Adds a Quick Scan section for fast recruiter reading.
+- Adds a Proof Map to translate experience into digital/product value.
+- Adds a second visual chart: Role Evidence Map.
+- Converts project details into expandable case-study sections.
+- Shows fewer experience items on mobile by default.
+- Keeps the page general enough for multiple applications, not only one company.

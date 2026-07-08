@@ -53,20 +53,24 @@
         </div>
 
         <div class="role-switcher">
-          <p class="card-label">Open to roles</p>
-          <div class="role-tabs">
-            <button class="role-tab active" data-role="vibe">Vibe Coding</button>
-            <button class="role-tab" data-role="data">Data Analyst</button>
-            <button class="role-tab" data-role="web">Web-adjacent</button>
-          </div>
+          <p class="card-label">Quick read</p>
+          <h2>Data + operations + AI-assisted workflow.</h2>
           <p id="roleDescription">
-            I translate real operational problems into logic, workflows, and AI-assisted prototypes.
+            I am not only presenting work history. This portfolio shows how my experience can become practical tools, analysis, and product workflows.
           </p>
         </div>
       </aside>
     </section>
 
-    <section class="section" id="metrics">
+    <section class="section compact" id="quick-scan">
+      <div class="section-header reveal">
+        <p class="eyebrow">Quick scan</p>
+        <h2>For recruiters and hiring teams: read this first.</h2>
+      </div>
+      <div class="quick-grid" id="quickScanGrid"></div>
+    </section>
+
+    <section class="section compact" id="metrics">
       <div class="metric-grid" id="metricsGrid"></div>
     </section>
 
@@ -76,6 +80,14 @@
         <h2>My strongest fit is where data, product, operations, and AI meet.</h2>
       </div>
       <div class="fit-grid" id="roleFitGrid"></div>
+    </section>
+
+    <section class="section compact" id="proof-map">
+      <div class="section-header reveal">
+        <p class="eyebrow">Proof map</p>
+        <h2>How my experience translates into digital product work.</h2>
+      </div>
+      <div class="proof-flow" id="proofMapGrid"></div>
     </section>
 
     <section class="section alt" id="visuals">
@@ -92,13 +104,9 @@
           <canvas id="capabilityChart" width="600" height="360"></canvas>
         </article>
         <article class="journey-card reveal">
-          <h3>Transition story</h3>
-          <div class="journey">
-            <div><span>01</span><p>GIS & spatial data foundation</p></div>
-            <div><span>02</span><p>Grab POI, routing, and operational data quality</p></div>
-            <div><span>03</span><p>AI training: GenAI, LLM, agents, RAG, vibe coding</p></div>
-            <div><span>04</span><p>Building toward AI-assisted internal tools and data products</p></div>
-          </div>
+          <h3>Role evidence map</h3>
+          <p>Each role fit is supported by different evidence from my experience and learning path.</p>
+          <canvas id="roleEvidenceChart" width="520" height="420"></canvas>
         </article>
       </div>
     </section>
