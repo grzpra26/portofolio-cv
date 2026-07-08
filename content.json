@@ -82,25 +82,55 @@
     }
   ],
   "experience": [
-    {
-      "period": "Nov 2021 — Dec 2025",
-      "role": "Regional Support Team",
-      "company": "Grab",
-      "bullets": "Analyzed POI, routing, and map data quality issues across Indonesia.|Investigated driver-submitted voice reports to identify POI inaccuracies, incorrect attributes, map gaps, or routing logic issues.|Collaborated with Driver-Partners, Product, Engineering, Operations, and external map providers.|Prepared map accuracy and issue trend reports to support operational decision-making."
-    },
-    {
-      "period": "Aug 2020 — Jun 2021",
-      "role": "Research Assistant",
-      "company": "Pusat Penelitian Geografi Terapan",
-      "bullets": "Processed Landsat 8 imagery using ArcMap and supervised classification methods.|Prepared and organized spatial data from multiple research teams for server integration.|Supported technical setup for GIS workstations, servers, and research tools."
-    },
-    {
-      "period": "Mar 2019 — Feb 2020",
-      "role": "GIS Analyst",
-      "company": "PT Infimap Geospasial",
-      "bullets": "Processed flood data with HEC-GeoRAS and HEC-RAS.|Managed survey planning and data preparation for Grab Street View projects.|Used QGIS and Python-based scripts to support photo cleaning, migration, and deliverable workflows."
-    }
-  ],
+  {
+    "period": "November 2021 — December 2025",
+    "role": "Regional Support Team",
+    "company": "Grab",
+    "bullets": "Analyzed POI, routing, and map data quality issues across Indonesia.|Investigated driver-submitted voice reports to identify POI inaccuracies, incorrect attributes, map gaps, or routing logic issues.|Collaborated with Driver-Partners, Product, Engineering, Operations, and external map providers.|Prepared map accuracy and issue trend reports to support operational decision-making."
+  },
+  {
+    "period": "August 2020 — June 2021",
+    "role": "Research Assistant",
+    "company": "Pusat Penelitian Geografi Terapan",
+    "bullets": "Supported the National Priority Research project on drought model development for sustainable food estate management.|Processed Landsat 8 imagery using ArcMap and supervised classification methods.|Prepared and organized spatial data from multiple research teams for server integration.|Supported technical setup for GIS workstations, servers, and research tools."
+  },
+  {
+    "period": "February 2020 — September 2020",
+    "role": "Product Management",
+    "company": "PT Maxima Grafis Singhasana",
+    "bullets": "Managed the production and procurement of public health materials during COVID-19 response projects.|Coordinated production of 150,000 cloth masks and 10,000 handwashing campaign banners for the Indonesian Ministry of Health.|Managed vendor coordination, production timeline, item specifications, and delivery preparation."
+  },
+  {
+    "period": "March 2019 — February 2020",
+    "role": "GIS Analyst",
+    "company": "PT Infimap Geospasial",
+    "bullets": "Processed flood-related geospatial data using HEC-GeoRAS and HEC-RAS for training module development.|Managed surveyor planning for Grab Street View data collection by splitting road coverage into grids and distributing survey tasks.|Cleaned GoPro photo data based on location using QGIS to support Street View production.|Used Python-based scripts to support photo migration and data handover workflows."
+  },
+  {
+    "period": "September 2018 — March 2019",
+    "role": "Product Management",
+    "company": "PT Maxima Grafis Singhasana",
+    "bullets": "Managed procurement and production of Posyandu Kit and New Year’s Kit projects for the Directorate of Health Promotion and Community Empowerment, Indonesian Ministry of Health.|Coordinated printing and production of banners for public health and environmental health campaigns.|Supported vendor management, production monitoring, and administrative documentation."
+  },
+  {
+    "period": "February 2018 — September 2018",
+    "role": "GIS Operation Staff",
+    "company": "PT Surveyor Indonesia (Persero)",
+    "bullets": "Digitized PJT II assets from drone-captured imagery.|Inputted and validated asset attributes based on field survey data.|Conducted field surveys for PJT II section and sub-section offices to complete asset mapping data."
+  },
+  {
+    "period": "July 2017 — November 2017",
+    "role": "Data Operator",
+    "company": "PT Sigma Ekspresi",
+    "bullets": "Supported the Management of Geospatial Database, Migration, and Services at BIG Network Node project.|Migrated attribute data from KUGI V3 to KUGI V4.|Listed and organized available geospatial data in BIG’s NAS storage.|Ran Python scripts to support data migration workflows."
+  },
+  {
+    "period": "2015 — 2016",
+    "role": "Academic & Early Project Experience",
+    "company": "Universitas Indonesia / BPN Project",
+    "bullets": "Assisted lecturers in teaching Quantitative Methods, Cartography, and Statistics to Geography students.|Inputted questionnaire data for an employee satisfaction survey project.|Digitized land cover data for Kecamatan Kasemen and Kecamatan Cipocok Jaya, Serang, Banten."
+  }
+],
   "skills": [
     {
       "category": "Data Analysis & Operations",
