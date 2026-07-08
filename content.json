@@ -3,10 +3,10 @@
     "name": "Your Name",
     "title": "AI-Assisted Data & Location Intelligence",
     "tagline": "Data • Location Intelligence • AI-Assisted Workflow",
-    "headline": "I help turn messy operational data into clearer decisions and practical digital workflows.",
-    "summary": "My background combines POI analysis, routing issue investigation, geospatial data, field validation, reporting, and AI-assisted learning. I am strongest in roles where data, operations, product, and technology meet.",
-    "contactHeadline": "Open to roles where data, operations, product, and technology meet.",
-    "contactText": "I am interested in Data Analyst, Location Intelligence, Product/Data Operations, Technical Operations, AI-assisted workflow, and junior web/internal tools roles."
+    "headline": "Making real-world data easier to understand, validate, and turn into practical workflows.",
+    "summary": "My background sits between data, operations, and location intelligence. I have worked with POI quality, routing issues, geospatial data, field validation, reporting, and cross-functional follow-up. Recently, I have been expanding into AI-assisted workflows, Python, GenAI, LLMs, agents, RAG, and spec-driven development.",
+    "contactHeadline": "Open to thoughtful roles across data, operations, product, and technology.",
+    "contactText": "I am interested in work that turns complex information into clearer decisions, better workflows, and practical digital tools."
   },
   "metrics": [
     {
@@ -28,15 +28,15 @@
   "roleFit": [
     {
       "title": "Data Analyst / Data Operations",
-      "description": "Messy data, issue patterns, reporting, classification logic, root-cause analysis, and operational validation."
+      "description": "Comfortable with messy operational data, issue patterns, reporting, classification logic, and root-cause analysis."
     },
     {
       "title": "Location Intelligence / GIS",
-      "description": "POI validation, routing issues, spatial analysis, map data quality, geospatial workflows, and field reality."
+      "description": "Strong foundation in POI validation, routing issues, spatial analysis, map data quality, and geospatial workflows."
     },
     {
-      "title": "AI-Assisted Builder",
-      "description": "Building toward practical tools and workflows with GenAI, LLMs, agents, RAG, Python, and spec-driven learning."
+      "title": "AI-Assisted Workflow",
+      "description": "Currently building toward practical AI-assisted tools using GenAI, LLMs, agents, RAG, Python, and spec-driven learning."
     }
   ],
   "capabilities": [
@@ -65,29 +65,29 @@
     {
       "tag": "Data Quality / Classification",
       "title": "PAC-MAN — POI Category & Business Type Detection",
-      "description": "Worked on an internal data quality initiative used to detect POI category and business type from POI names and identify potentially incorrect POI attributes. This project reflects my interest in classification logic, validation rules, and practical data quality improvement.",
+      "description": "An internal data quality initiative to help detect POI category and business type from POI names, then flag potentially incorrect attributes.",
       "tools": "Classification Logic, POI Validation, Data Quality, Operational Data",
       "problem": "POI attributes can be inconsistent: a place name may suggest one category, while the stored category or business type says another.",
       "approach": "Used classification logic to detect possible POI category and business type from names, then flag potentially incorrect attributes.",
-      "evidence": "Shows data quality thinking, pattern recognition, validation rules, and product/data operations mindset."
+      "evidence": "Relevant because it connects data quality, classification logic, and product operations thinking."
     },
     {
       "tag": "Safety Feature Support",
       "title": "Audio Protect Dataset Support",
-      "description": "Supported feature development by preparing and categorizing sample abusive words for Audio Protect. The work helped structure language patterns for feature testing, validation, and safety-related data preparation.",
+      "description": "Prepared and categorized sample abusive words to support Audio Protect feature testing and safety-related data preparation.",
       "tools": "Dataset Preparation, Language Pattern, Feature Testing, Safety Data",
       "problem": "Safety-related features need structured language samples to test whether the system can recognize harmful or abusive speech patterns.",
       "approach": "Prepared and categorized sample abusive words to support feature testing and validation.",
-      "evidence": "Shows dataset preparation, taxonomy thinking, and attention to feature quality."
+      "evidence": "Relevant because it shows dataset preparation, taxonomy thinking, and attention to feature quality."
     },
     {
       "tag": "AI Learning Track",
       "title": "AI-Assisted Workflow & Vibe Coding Learning",
-      "description": "Completed internal and external learning in GenAI, LLMs, AI agents, RAG, vibe coding, Python, machine learning fundamentals, deep learning fundamentals, and spec-driven development. My goal is to apply this learning into practical tools, dashboards, data validation workflows, and automation.",
+      "description": "A current learning track in GenAI, LLMs, agents, RAG, vibe coding, Python, ML, deep learning, and spec-driven development.",
       "tools": "GenAI, LLM, Agents, RAG, Python, Spec-Driven Development",
       "problem": "Transitioning from data operations into AI-assisted workflow requires practical learning, not only certificates.",
       "approach": "Completed GenAI, LLM, agents, RAG, Python, ML, deep learning, and spec-driven development learning tracks.",
-      "evidence": "Shows current direction toward practical AI-assisted tools, dashboards, and automation."
+      "evidence": "Relevant because it shows my transition from data operations into AI-assisted workflow and practical tools."
     }
   ],
   "experience": [
@@ -218,46 +218,46 @@
   ],
   "quickScan": [
     {
-      "label": "Best fit",
-      "value": "Data / Ops / AI-assisted workflow",
-      "note": "Not just GIS; I work with data quality, issue patterns, and practical workflows."
+      "label": "Where I fit",
+      "value": "Data, operations, and AI-assisted workflow",
+      "note": "I enjoy roles that need structure, analysis, and practical problem solving."
     },
     {
-      "label": "Strong proof",
-      "value": "Grab POI & routing analysis",
-      "note": "Real operational data, field signals, product/engineering coordination."
+      "label": "Strongest proof",
+      "value": "Grab POI & routing data",
+      "note": "Experience with real operational signals, location data quality, and cross-functional follow-up."
     },
     {
-      "label": "Transition",
-      "value": "GenAI + Python + Vibe Coding",
-      "note": "Learning path supported by internal training and AWS/Dicoding certifications."
+      "label": "Current direction",
+      "value": "From analysis to practical tools",
+      "note": "Learning GenAI, LLMs, Python, agents, RAG, and vibe coding to build more useful workflows."
     },
     {
-      "label": "What I can build toward",
-      "value": "Dashboards, validators, simple tools",
-      "note": "Useful for internal tools, data validation, reporting, and product operations."
+      "label": "What I can support",
+      "value": "Dashboards, validators, and workflow tools",
+      "note": "Especially for data validation, issue tracking, reporting, and internal operations."
     }
   ],
   "proofMap": [
     {
-      "stage": "Signal",
-      "title": "Messy real-world data",
-      "description": "Driver reports, POI names, routing issues, map gaps, field validation"
+      "stage": "Observe",
+      "title": "Start from real signals",
+      "description": "Driver reports, POI names, routing issues, field findings, and map gaps"
     },
     {
-      "stage": "Analysis",
-      "title": "Find patterns & root causes",
-      "description": "Classify issue types, detect wrong attributes, separate data vs logic problems"
+      "stage": "Structure",
+      "title": "Turn signals into patterns",
+      "description": "Classify issue types, identify wrong attributes, and separate data issues from logic issues"
     },
     {
-      "stage": "Workflow",
-      "title": "Turn into structured action",
-      "description": "Reports, validation rules, escalation, dashboard/internal tool ideas"
+      "stage": "Translate",
+      "title": "Make the next action clearer",
+      "description": "Reports, validation rules, escalation notes, dashboard ideas, or workflow improvements"
     },
     {
-      "stage": "AI layer",
-      "title": "Build faster with AI",
-      "description": "GenAI, LLM, RAG, agents, Python, spec-driven development"
+      "stage": "Build",
+      "title": "Use AI to move faster",
+      "description": "Apply GenAI, LLMs, agents, RAG, Python, and spec-driven development thoughtfully"
     }
   ]
 }

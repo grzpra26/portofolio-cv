@@ -8,6 +8,10 @@ const roleDescriptions = {
 
 let showAllExperience = false;
 let cachedExperience = [];
+let showAllSkills = false;
+let showAllCertifications = false;
+let cachedSkills = [];
+let cachedCertifications = [];
 
 function $(selector) { return document.querySelector(selector); }
 function $all(selector) { return Array.from(document.querySelectorAll(selector)); }
@@ -162,22 +166,48 @@ function renderExperience(items = []) {
 }
 
 function renderSkills(items = []) {
-  $("#skillsGrid").innerHTML = items.map(item => `
+  cachedSkills = items;
+  const visibleItems = showAllSkills ? items : items.slice(0, 3);
+
+  $("#skillsGrid").innerHTML = visibleItems.map(item => `
     <article class="skill-box reveal">
       <h3>${escapeHtml(item.category)}</h3>
       <p>${escapeHtml(item.items)}</p>
     </article>
   `).join("");
+
+  const toggle = $("#toggleSkills");
+  if (toggle) {
+    if (items.length <= 3) {
+      toggle.style.display = "none";
+    } else {
+      toggle.style.display = "inline-flex";
+      toggle.textContent = showAllSkills ? "Show less" : `See more skills (${items.length - 3} more)`;
+    }
+  }
 }
 
 function renderCertifications(items = []) {
-  $("#certificationGrid").innerHTML = items.map(item => `
+  cachedCertifications = items;
+  const visibleItems = showAllCertifications ? items : items.slice(0, 3);
+
+  $("#certificationGrid").innerHTML = visibleItems.map(item => `
     <article class="cert-card reveal">
       <h3>${escapeHtml(item.name)}</h3>
       <p>${escapeHtml(item.issuer)} • ${escapeHtml(item.date)}</p>
       <small>Credential: ${escapeHtml(item.credential)}</small>
     </article>
   `).join("");
+
+  const toggle = $("#toggleCertifications");
+  if (toggle) {
+    if (items.length <= 3) {
+      toggle.style.display = "none";
+    } else {
+      toggle.style.display = "inline-flex";
+      toggle.textContent = showAllCertifications ? "Show less" : `See more learning (${items.length - 3} more)`;
+    }
+  }
 }
 
 function renderLinks(items = []) {
@@ -220,8 +250,8 @@ function drawCapabilityChart(items = []) {
     ctx.fill();
 
     const gradient = ctx.createLinearGradient(padding.left, 0, padding.left + chartW, 0);
-    gradient.addColorStop(0, "#b13c2f");
-    gradient.addColorStop(1, "#2f6f73");
+    gradient.addColorStop(0, "#5f646b");
+    gradient.addColorStop(1, "#a7abb1");
     ctx.fillStyle = gradient;
     roundRect(ctx, padding.left, y - barH / 2, barW, barH, 999);
     ctx.fill();
@@ -288,8 +318,8 @@ function drawRoleEvidenceChart() {
   });
 
   const gradient = ctx.createRadialGradient(cx, cy, 8, cx, cy, maxR);
-  gradient.addColorStop(0, "rgba(177,60,47,0.45)");
-  gradient.addColorStop(1, "rgba(47,111,115,0.28)");
+  gradient.addColorStop(0, "rgba(95,100,107,0.44)");
+  gradient.addColorStop(1, "rgba(167,171,177,0.28)");
 
   ctx.beginPath();
   axes.forEach((axis, i) => {
@@ -301,7 +331,7 @@ function drawRoleEvidenceChart() {
   ctx.closePath();
   ctx.fillStyle = gradient;
   ctx.fill();
-  ctx.strokeStyle = "#b13c2f";
+  ctx.strokeStyle = "#5f646b";
   ctx.lineWidth = 2;
   ctx.stroke();
 
@@ -311,7 +341,7 @@ function drawRoleEvidenceChart() {
     const y = cy + Math.sin(axis.angle) * r;
     ctx.beginPath();
     ctx.arc(x, y, 4, 0, Math.PI * 2);
-    ctx.fillStyle = "#b13c2f";
+    ctx.fillStyle = "#5f646b";
     ctx.fill();
   });
 
@@ -346,6 +376,22 @@ function initInteractions() {
     toggleExperience.addEventListener("click", () => {
       showAllExperience = !showAllExperience;
       renderExperience(cachedExperience);
+    });
+  }
+
+  const toggleSkills = $("#toggleSkills");
+  if (toggleSkills) {
+    toggleSkills.addEventListener("click", () => {
+      showAllSkills = !showAllSkills;
+      renderSkills(cachedSkills);
+    });
+  }
+
+  const toggleCertifications = $("#toggleCertifications");
+  if (toggleCertifications) {
+    toggleCertifications.addEventListener("click", () => {
+      showAllCertifications = !showAllCertifications;
+      renderCertifications(cachedCertifications);
     });
   }
 

@@ -150,3 +150,13 @@ This version improves engagement on mobile:
 - Converts project details into expandable case-study sections.
 - Shows fewer experience items on mobile by default.
 - Keeps the page general enough for multiple applications, not only one company.
+
+
+## Soft gray premium update
+
+- Softer gray-first visual direction.
+- More elegant copywriting, less direct/recruiter-facing.
+- Added premium supergraphic layers.
+- Skills show 3 items by default with "See more skills".
+- Recent learning track shows 3 items by default with "See more learning".
+- Better suited for multiple job applications, not only one company.
