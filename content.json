@@ -4,7 +4,7 @@
     "title": "AI-Assisted Data & Location Intelligence",
     "tagline": "Data • Location Intelligence • AI-Assisted Workflow",
     "headline": "Bridging real-world data, operations, and emerging technology into practical digital workflows.",
-    "summary": "My work sits at the intersection of data quality, location intelligence, operational insight, and AI-assisted problem solving. I bring experience in POI analysis, routing issue investigation, geospatial data, field validation, and reporting—then translate those signals into clearer patterns, workflows, and opportunities for improvement.",
+    "summary": "My background brings together data quality, location intelligence, operational insight, and AI-assisted problem solving. I work comfortably with real-world signals, structured analysis, and practical workflow thinking—then translate them into clearer patterns, reports, and opportunities for improvement.",
     "contactHeadline": "Open to thoughtful opportunities across data, operations, product, and technology.",
     "contactText": "I am interested in roles related to Data Analyst, Location Intelligence, Product/Data Operations, Technical Operations, AI-assisted workflow, and junior internal tools or web-adjacent development."
   },
@@ -27,14 +27,17 @@
   ],
   "roleFit": [
     {
+      "icon": "◔",
       "title": "Data Analyst / Data Operations",
       "description": "Comfortable working with operational data, issue patterns, reporting, classification logic, root-cause analysis, and cross-functional validation."
     },
     {
+      "icon": "⌖",
       "title": "Location Intelligence / GIS",
       "description": "Experienced in POI validation, routing issues, spatial analysis, map data quality, geospatial workflows, and field reality."
     },
     {
+      "icon": "✦",
       "title": "AI-Assisted Workflow",
       "description": "Building toward practical tools and workflows with GenAI, LLMs, agents, RAG, Python, and spec-driven learning."
     }
@@ -248,21 +251,25 @@
   ],
   "proofMap": [
     {
+      "icon": "◌",
       "stage": "Observe",
       "title": "Real-world signals",
       "description": "Driver reports, POI names, routing issues, map gaps, field validation, and operational feedback."
     },
     {
+      "icon": "▣",
       "stage": "Structure",
       "title": "Patterns and root causes",
       "description": "Classifying issue types, identifying incorrect attributes, and separating data problems from logic problems."
     },
     {
+      "icon": "⇢",
       "stage": "Translate",
       "title": "Insights into action",
       "description": "Turning findings into reports, validation rules, escalation notes, dashboard ideas, or workflow improvements."
     },
     {
+      "icon": "✺",
       "stage": "Build",
       "title": "AI-assisted workflows",
       "description": "Using GenAI, LLM concepts, RAG, agents, Python, and spec-driven thinking to move faster and clearer."

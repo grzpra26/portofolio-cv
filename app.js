@@ -65,37 +65,33 @@ function renderMetrics(metrics = []) {
   `).join("");
 }
 
-function renderQuickScan(items = []) {
-  const grid = $("#quickScanGrid");
-  if (!grid) return;
-  grid.innerHTML = items.map((item, index) => `
-    <article class="quick-card reveal">
-      <span>0${index + 1}</span>
-      <h3>${escapeHtml(item.label)}</h3>
-      <strong>${escapeHtml(item.value)}</strong>
-      <p>${escapeHtml(item.note)}</p>
-    </article>
-  `).join("");
-}
 
 function renderProofMap(items = []) {
   const grid = $("#proofMapGrid");
   if (!grid) return;
   grid.innerHTML = items.map((item, index) => `
-    <article class="proof-step reveal">
-      <span>${escapeHtml(item.stage)}</span>
+    <article class="proof-step reveal proof-step-${index + 1}">
+      <div class="proof-head">
+        <div class="proof-icon">${escapeHtml(item.icon || "✦")}</div>
+        <span class="proof-stage">${escapeHtml(item.stage)}</span>
+      </div>
       <h3>${escapeHtml(item.title)}</h3>
-      <p>${escapeHtml(item.description)}</p>
-      ${index < items.length - 1 ? '<div class="flow-arrow">→</div>' : ''}
+      <details class="proof-details">
+        <summary>See more</summary>
+        <p>${escapeHtml(item.description)}</p>
+      </details>
     </article>
   `).join("");
 }
 
 function renderRoleFit(items = []) {
-  $("#roleFitGrid").innerHTML = items.map(item => `
-    <article class="fit-card reveal">
-      <h3>${escapeHtml(item.title)}</h3>
-      <p>${escapeHtml(item.description)}</p>
+  $("#roleFitGrid").innerHTML = items.map((item, index) => `
+    <article class="fit-card reveal fit-card-${index + 1}">
+      <div class="fit-icon">${escapeHtml(item.icon || "✦")}</div>
+      <div class="fit-copy">
+        <h3>${escapeHtml(item.title)}</h3>
+        <p>${escapeHtml(item.description)}</p>
+      </div>
     </article>
   `).join("");
 }
@@ -417,7 +413,6 @@ function initInteractions() {
 async function main() {
   const data = await loadData();
   renderProfile(data.profile);
-  renderQuickScan(data.quickScan);
   renderMetrics(data.metrics);
   renderRoleFit(data.roleFit);
   renderProofMap(data.proofMap);
@@ -427,7 +422,6 @@ async function main() {
   renderCertifications(data.certifications);
   renderLinks(data.links);
   drawCapabilityChart(data.capabilities);
-    drawRoleEvidenceChart();
   drawRoleEvidenceChart();
   $("#year").textContent = new Date().getFullYear();
   initInteractions();

@@ -160,3 +160,18 @@ This version improves engagement on mobile:
 - First fold CTA buttons: Projects, Experience, Contact Me.
 - Skills section now has highlight + See more.
 - Certifications section now has highlight + See more.
+
+
+## Fix note
+
+This version fixes a JavaScript recursion issue in `observeReveals()` that could make the Vercel page render blank.
+
+
+## Colorful icon update
+
+- Removed the “At a glance” section.
+- Added connected gradient backgrounds across sections.
+- Added stronger orange, blue, and purple accents.
+- Role Fit cards now include icons.
+- Working Logic is simplified into icon cards with collapsible “See more”.
+- Added more supergraphics and colorful decorative elements.
