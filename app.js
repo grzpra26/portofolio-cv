@@ -363,7 +363,13 @@ function roundRect(ctx, x, y, w, h, r) {
 }
 
 function observeReveals() {
-  observeReveals();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.12 });
+
+  $all(".reveal").forEach(el => observer.observe(el));
 }
 
 function initInteractions() {
