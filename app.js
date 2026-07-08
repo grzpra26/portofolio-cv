@@ -137,10 +137,17 @@ function renderProjects(projects = []) {
   }).join("");
 }
 
+let experienceExpanded = false;
+let currentExperienceItems = [];
+
 function renderExperience(items = []) {
   const target = $("#experienceTimeline");
   if (!target) return;
-  target.innerHTML = items.map(item => {
+
+  currentExperienceItems = items;
+  const visibleItems = experienceExpanded ? items : items.slice(0, 3);
+
+  target.innerHTML = visibleItems.map(item => {
     const bullets = String(item.bullets || "").split("|").map(b => b.trim()).filter(Boolean);
     return `
       <article class="timeline-item reveal visible">
@@ -152,6 +159,46 @@ function renderExperience(items = []) {
       </article>
     `;
   }).join("");
+
+  renderExperienceToggle(items.length);
+}
+
+function renderExperienceToggle(totalItems) {
+  const timeline = $("#experienceTimeline");
+  if (!timeline) return;
+
+  let wrapper = $("#experienceToggleWrapper");
+
+  if (totalItems <= 3) {
+    if (wrapper) wrapper.remove();
+    return;
+  }
+
+  if (!wrapper) {
+    wrapper = document.createElement("div");
+    wrapper.id = "experienceToggleWrapper";
+    wrapper.className = "experience-toggle-wrapper";
+    timeline.insertAdjacentElement("afterend", wrapper);
+  }
+
+  wrapper.innerHTML = `
+    <button class="experience-toggle" type="button">
+      ${experienceExpanded ? "Show less experience" : `See more experience (${totalItems - 3} more)`}
+    </button>
+  `;
+
+  const button = wrapper.querySelector(".experience-toggle");
+  button.addEventListener("click", () => {
+    experienceExpanded = !experienceExpanded;
+    renderExperience(currentExperienceItems);
+
+    if (!experienceExpanded) {
+      document.querySelector("#experience")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
 }
 
 function renderSkills(items = []) {

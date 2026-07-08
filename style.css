@@ -388,6 +388,31 @@ h3 { font-size: 1.22rem; }
 .timeline-date { color: var(--accent); font-weight: 850; }
 .timeline-content ul { color: var(--muted); padding-left: 20px; }
 
+
+.experience-toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.experience-toggle {
+  border: 1px solid var(--line);
+  background: var(--text);
+  color: white;
+  border-radius: 999px;
+  padding: 13px 18px;
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(40, 32, 24, 0.10);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.experience-toggle:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(40, 32, 24, 0.16);
+}
+
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
