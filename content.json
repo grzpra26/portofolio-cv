@@ -1,0 +1,180 @@
+{
+  "profile": {
+    "name": "Grizzly Pradipta",
+    "title": "AI-Assisted Data & Location Intelligence",
+    "tagline": "AI-Assisted Data • Location Intelligence • Vibe Coding Learner",
+    "headline": "I turn messy operational data into clearer insights, better workflows, and practical AI-assisted solutions.",
+    "summary": "I have experience in POI analysis, map data quality, routing issue investigation, geospatial data, and operational problem solving. Previously at Grab, I supported location-based services by validating real-world data, analyzing driver reports, identifying incorrect POI attributes, and collaborating with Product, Engineering, Operations, and external map providers.",
+    "contactHeadline": "Interested in data, AI-assisted workflows, and practical digital product development.",
+    "contactText": "I am open to roles in Vibe Coding, Data Analyst, Location Intelligence, Technical Operations, and AI-assisted internal tools development."
+  },
+  "metrics": [
+    {
+      "label": "Years in data, GIS & operations",
+      "value": "8+",
+      "description": "From geospatial database work to platform-level map data quality."
+    },
+    {
+      "label": "Main domain",
+      "value": "POI",
+      "description": "Location data, routing issue analysis, and map quality validation."
+    },
+    {
+      "label": "Current transition",
+      "value": "AI",
+      "description": "GenAI, LLM, agents, RAG, Python, and vibe coding learning track."
+    }
+  ],
+  "roleFit": [
+    {
+      "title": "Vibe Coding",
+      "description": "I am expanding into AI-assisted development through GenAI, LLMs, agents, RAG, Python, machine learning fundamentals, and spec-driven development. My strength is translating real operational problems into clear logic and practical workflows."
+    },
+    {
+      "title": "Data Analyst",
+      "description": "I have hands-on experience working with messy operational data, POI quality, root-cause analysis, classification logic, issue trend reporting, and cross-functional data validation."
+    },
+    {
+      "title": "Web Dev-adjacent",
+      "description": "I am not positioning myself as a senior web developer yet, but I am building toward AI-assisted web and internal tools development, especially for dashboards, forms, data validation, and simple workflow tools."
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Data analysis",
+      "value": 85
+    },
+    {
+      "label": "GIS & location intelligence",
+      "value": 90
+    },
+    {
+      "label": "AI & vibe coding learning",
+      "value": 65
+    },
+    {
+      "label": "Python automation",
+      "value": 45
+    },
+    {
+      "label": "Web development",
+      "value": 35
+    }
+  ],
+  "projects": [
+    {
+      "tag": "POI Data Quality",
+      "title": "PAC-MAN — POI Category & Business Type Detection",
+      "description": "Built and contributed to an internal data quality project used to detect POI category and business type from POI names and identify incorrect POI attributes. The project supported POI validation, classification logic, and map data quality improvement.",
+      "tools": "Classification Logic, POI Validation, Data Quality"
+    },
+    {
+      "tag": "Safety Feature Support",
+      "title": "Audio Protect Dataset Support",
+      "description": "Prepared and categorized sample abusive words for Grab’s Audio Protect feature development. The work supported language pattern identification, feature testing, and safety-related data preparation.",
+      "tools": "Dataset Preparation, Language Pattern, Feature Testing"
+    },
+    {
+      "tag": "Learning Track",
+      "title": "AI & Vibe Coding Learning Projects",
+      "description": "Completed internal and external learning in GenAI, LLMs, AI agents, RAG, vibe coding, Python, machine learning fundamentals, deep learning fundamentals, and spec-driven development through Grab internal AI training and AWS/Dicoding programs.",
+      "tools": "GenAI, LLM, Agents, RAG, Python"
+    }
+  ],
+  "experience": [
+    {
+      "period": "Nov 2021 — Dec 2025",
+      "role": "Regional Support Team",
+      "company": "Grab",
+      "bullets": "Analyzed POI, routing, and map data quality issues across Indonesia.|Investigated driver-submitted voice reports to identify POI inaccuracies, incorrect attributes, map gaps, or routing logic issues.|Collaborated with Driver-Partners, Product, Engineering, Operations, and external map providers.|Prepared map accuracy and issue trend reports to support operational decision-making."
+    },
+    {
+      "period": "Aug 2020 — Jun 2021",
+      "role": "Research Assistant",
+      "company": "Pusat Penelitian Geografi Terapan",
+      "bullets": "Processed Landsat 8 imagery using ArcMap and supervised classification methods.|Prepared and organized spatial data from multiple research teams for server integration.|Supported technical setup for GIS workstations, servers, and research tools."
+    },
+    {
+      "period": "Mar 2019 — Feb 2020",
+      "role": "GIS Analyst",
+      "company": "PT Infimap Geospasial",
+      "bullets": "Processed flood data with HEC-GeoRAS and HEC-RAS.|Managed survey planning and data preparation for Grab Street View projects.|Used QGIS and Python-based scripts to support photo cleaning, migration, and deliverable workflows."
+    }
+  ],
+  "skills": [
+    {
+      "category": "Data Analysis & Operations",
+      "items": "Data cleaning, validation, root-cause analysis, classification logic, reporting, POI analysis, Google Sheets, Excel, Looker Studio"
+    },
+    {
+      "category": "AI & Vibe Coding",
+      "items": "GenAI fundamentals, LLM concepts, AI agents, RAG fundamentals, prompt-based development, spec-driven development"
+    },
+    {
+      "category": "Programming & Automation",
+      "items": "Basic Python, data processing scripts, file migration automation, beginner-level automation workflow, technical documentation"
+    },
+    {
+      "category": "GIS & Location Intelligence",
+      "items": "ArcGIS, QGIS, ENVI, spatial analysis, POI validation, routing issue analysis, geospatial database, field survey, remote sensing"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Spec-Driven Development dengan Kiro",
+      "issuer": "Dicoding Academy",
+      "date": "May 2026 — May 2029",
+      "credential": "NVP7NV14VZR0"
+    },
+    {
+      "name": "Belajar Dasar Cloud dan Gen AI di AWS",
+      "issuer": "Dicoding Academy",
+      "date": "May 2026 — May 2029",
+      "credential": "L4PQ9L352PO1"
+    },
+    {
+      "name": "Memulai Pemrograman dengan Python",
+      "issuer": "Dicoding Academy",
+      "date": "May 2026 — May 2029",
+      "credential": "JMZVO5243XN9"
+    },
+    {
+      "name": "Belajar Machine Learning untuk Pemula",
+      "issuer": "Dicoding Academy",
+      "date": "May 2026 — May 2029",
+      "credential": "72ZDJ3EVLZYW"
+    },
+    {
+      "name": "Belajar Dasar AI",
+      "issuer": "Dicoding Academy",
+      "date": "June 2026 — June 2029",
+      "credential": "JMZVO5233XN9"
+    },
+    {
+      "name": "Belajar Fundamental Deep Learning",
+      "issuer": "Dicoding Academy",
+      "date": "June 2026 — June 2029",
+      "credential": "JMZVOWL7OXN9"
+    },
+    {
+      "name": "Membangun Sistem Machine Learning",
+      "issuer": "Dicoding Academy",
+      "date": "June 2026 — June 2029",
+      "credential": "81P2OR1MOZOY"
+    }
+  ],
+  "links": [
+    {
+      "label": "Email",
+      "url": "mailto:grizzlypradipta26@gmail.com"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/your-linkedin"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/your-github"
+    }
+  ]
+}

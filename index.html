@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Live Portfolio CV</title>
+  <meta name="description" content="Live portfolio CV powered by Google Sheets mini CMS." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="#home" class="brand" data-field="name">Your Name</a>
+      <button class="menu-button" aria-label="Toggle menu">Menu</button>
+      <div class="nav-links">
+        <a href="#fit">Role Fit</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content reveal">
+        <p class="eyebrow" data-field="tagline">AI-Assisted Data • Location Intelligence • Vibe Coding Learner</p>
+        <h1 data-field="headline">I turn messy operational data into clearer insights, better workflows, and practical AI-assisted solutions.</h1>
+        <p class="hero-text" data-field="summary"></p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="button primary">View Projects</a>
+          <a href="#contact" class="button secondary">Contact Me</a>
+        </div>
+
+        <div class="status-strip">
+          <span class="pulse"></span>
+          <span>Live portfolio CV • Editable via mini CMS</span>
+        </div>
+      </div>
+
+      <aside class="hero-visual reveal">
+        <div class="orbit">
+          <div class="orbit-center">AI<br>Data<br>Product</div>
+          <span class="node n1">POI</span>
+          <span class="node n2">LLM</span>
+          <span class="node n3">GIS</span>
+          <span class="node n4">Web</span>
+          <span class="node n5">RAG</span>
+        </div>
+
+        <div class="role-switcher">
+          <p class="card-label">Open to roles</p>
+          <div class="role-tabs">
+            <button class="role-tab active" data-role="vibe">Vibe Coding</button>
+            <button class="role-tab" data-role="data">Data Analyst</button>
+            <button class="role-tab" data-role="web">Web-adjacent</button>
+          </div>
+          <p id="roleDescription">
+            I translate real operational problems into logic, workflows, and AI-assisted prototypes.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="metrics">
+      <div class="metric-grid" id="metricsGrid"></div>
+    </section>
+
+    <section class="section" id="fit">
+      <div class="section-header reveal">
+        <p class="eyebrow">Role fit</p>
+        <h2>My strongest fit is where data, product, operations, and AI meet.</h2>
+      </div>
+      <div class="fit-grid" id="roleFitGrid"></div>
+    </section>
+
+    <section class="section alt" id="visuals">
+      <div class="section-header reveal">
+        <p class="eyebrow">Visual snapshot</p>
+        <h2>A quick view of my capability mix.</h2>
+      </div>
+      <div class="visual-grid">
+        <article class="chart-card reveal">
+          <div class="chart-header">
+            <h3>Capability mix</h3>
+            <p>Not a seniority score; this shows where my experience and learning are concentrated.</p>
+          </div>
+          <canvas id="capabilityChart" width="600" height="360"></canvas>
+        </article>
+        <article class="journey-card reveal">
+          <h3>Transition story</h3>
+          <div class="journey">
+            <div><span>01</span><p>GIS & spatial data foundation</p></div>
+            <div><span>02</span><p>Grab POI, routing, and operational data quality</p></div>
+            <div><span>03</span><p>AI training: GenAI, LLM, agents, RAG, vibe coding</p></div>
+            <div><span>04</span><p>Building toward AI-assisted internal tools and data products</p></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt" id="projects">
+      <div class="section-header reveal">
+        <p class="eyebrow">Selected projects</p>
+        <h2>Projects that show how I think and solve problems.</h2>
+      </div>
+      <div class="project-list" id="projectList"></div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="section-header reveal">
+        <p class="eyebrow">Experience highlight</p>
+        <h2>From geospatial data to operational intelligence.</h2>
+      </div>
+      <div class="timeline" id="experienceTimeline"></div>
+    </section>
+
+    <section class="section alt" id="skills">
+      <div class="section-header reveal">
+        <p class="eyebrow">Skills</p>
+        <h2>Hybrid skills across data, GIS, AI, and technical operations.</h2>
+      </div>
+      <div class="skills-grid" id="skillsGrid"></div>
+    </section>
+
+    <section class="section" id="certifications">
+      <div class="section-header reveal">
+        <p class="eyebrow">Certifications</p>
+        <h2>Recent learning track.</h2>
+      </div>
+      <div class="cert-grid" id="certificationGrid"></div>
+    </section>
+
+    <section class="contact" id="contact">
+      <p class="eyebrow">Let’s connect</p>
+      <h2 data-field="contactHeadline"></h2>
+      <p data-field="contactText"></p>
+      <div class="contact-links" id="contactLinks"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> <span data-field="name">Your Name</span>. Built as a live portfolio CV.</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

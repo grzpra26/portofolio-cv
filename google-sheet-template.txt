@@ -1,0 +1,30 @@
+Sheet structure template
+
+Create a Google Sheet with these tabs and headers:
+
+TAB: profile
+name	title	tagline	headline	summary	contactHeadline	contactText
+
+TAB: metrics
+label	value	description
+
+TAB: roleFit
+title	description
+
+TAB: capabilities
+label	value
+
+TAB: projects
+tag	title	description	tools
+
+TAB: experience
+period	role	company	bullets
+
+TAB: skills
+category	items
+
+TAB: certifications
+name	issuer	date	credential
+
+TAB: links
+label	url
