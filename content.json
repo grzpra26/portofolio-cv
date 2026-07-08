@@ -1,12 +1,12 @@
 {
   "profile": {
-    "name": "Grizzly Pradipta Singhasana Enshito",
+    "name": "Your Name",
     "title": "AI-Assisted Data & Location Intelligence",
-    "tagline": "AI-Assisted Data • Location Intelligence • Vibe Coding Learner",
-    "headline": "I turn messy operational data into clearer insights, better workflows, and practical AI-assisted solutions.",
-    "summary": "I have experience in POI analysis, map data quality, routing issue investigation, geospatial data, and operational problem solving. Previously at Grab, I supported location-based services by validating real-world data, analyzing driver reports, identifying incorrect POI attributes, and collaborating with Product, Engineering, Operations, and external map providers.",
-    "contactHeadline": "Interested in data, AI-assisted workflows, and practical digital product development.",
-    "contactText": "I am open to roles in Vibe Coding, Data Analyst, Location Intelligence, Technical Operations, and AI-assisted internal tools development."
+    "tagline": "Data • Location Intelligence • AI-Assisted Workflow • Product Operations",
+    "headline": "I connect data, operations, and technology to build clearer insights and practical digital workflows.",
+    "summary": "I have experience in POI analysis, map data quality, routing issue investigation, geospatial data, field validation, and operational problem solving. My work has focused on turning messy real-world signals into structured insights, issue patterns, reports, and data quality improvements. I am currently expanding into AI-assisted development, Python, GenAI, LLMs, agents, RAG, and practical automation.",
+    "contactHeadline": "Open to roles where data, operations, product, and technology meet.",
+    "contactText": "I am interested in Data Analyst, Location Intelligence, Product/Data Operations, Technical Operations, AI-assisted workflow, and junior web/internal tools roles."
   },
   "metrics": [
     {
@@ -15,28 +15,28 @@
       "description": "From geospatial database work to platform-level map data quality."
     },
     {
-      "label": "Main domain",
+      "label": "Strongest domain",
       "value": "POI",
       "description": "Location data, routing issue analysis, and map quality validation."
     },
     {
-      "label": "Current transition",
+      "label": "Current growth path",
       "value": "AI",
-      "description": "GenAI, LLM, agents, RAG, Python, and vibe coding learning track."
+      "description": "GenAI, LLM, agents, RAG, Python, and AI-assisted workflow development."
     }
   ],
   "roleFit": [
     {
-      "title": "Vibe Coding",
-      "description": "I am expanding into AI-assisted development through GenAI, LLMs, agents, RAG, Python, machine learning fundamentals, and spec-driven development. My strength is translating real operational problems into clear logic and practical workflows."
+      "title": "Data Analyst / Data Operations",
+      "description": "I work well with messy operational data, issue patterns, classification logic, reporting, root-cause analysis, and cross-functional validation."
     },
     {
-      "title": "Data Analyst",
-      "description": "I have hands-on experience working with messy operational data, POI quality, root-cause analysis, classification logic, issue trend reporting, and cross-functional data validation."
+      "title": "Location Intelligence / GIS",
+      "description": "My foundation is in GIS, spatial analysis, POI validation, routing issue analysis, map data quality, field survey, and geospatial database workflows."
     },
     {
-      "title": "Web Dev-adjacent",
-      "description": "I am not positioning myself as a senior web developer yet, but I am building toward AI-assisted web and internal tools development, especially for dashboards, forms, data validation, and simple workflow tools."
+      "title": "AI-Assisted Builder",
+      "description": "I am building toward AI-assisted workflows, vibe coding, and internal tools development by combining real operational problem solving with GenAI, LLM, agents, RAG, Python, and spec-driven learning."
     }
   ],
   "capabilities": [
@@ -63,22 +63,22 @@
   ],
   "projects": [
     {
-      "tag": "POI Data Quality",
+      "tag": "Data Quality / Classification",
       "title": "PAC-MAN — POI Category & Business Type Detection",
-      "description": "Built and contributed to an internal data quality project used to detect POI category and business type from POI names and identify incorrect POI attributes. The project supported POI validation, classification logic, and map data quality improvement.",
-      "tools": "Classification Logic, POI Validation, Data Quality"
+      "description": "Worked on an internal data quality initiative used to detect POI category and business type from POI names and identify potentially incorrect POI attributes. This project reflects my interest in classification logic, validation rules, and practical data quality improvement.",
+      "tools": "Classification Logic, POI Validation, Data Quality, Operational Data"
     },
     {
       "tag": "Safety Feature Support",
       "title": "Audio Protect Dataset Support",
-      "description": "Prepared and categorized sample abusive words for Grab’s Audio Protect feature development. The work supported language pattern identification, feature testing, and safety-related data preparation.",
-      "tools": "Dataset Preparation, Language Pattern, Feature Testing"
+      "description": "Supported feature development by preparing and categorizing sample abusive words for Audio Protect. The work helped structure language patterns for feature testing, validation, and safety-related data preparation.",
+      "tools": "Dataset Preparation, Language Pattern, Feature Testing, Safety Data"
     },
     {
-      "tag": "Learning Track",
-      "title": "AI & Vibe Coding Learning Projects",
-      "description": "Completed internal and external learning in GenAI, LLMs, AI agents, RAG, vibe coding, Python, machine learning fundamentals, deep learning fundamentals, and spec-driven development through Grab internal AI training and AWS/Dicoding programs.",
-      "tools": "GenAI, LLM, Agents, RAG, Python"
+      "tag": "AI Learning Track",
+      "title": "AI-Assisted Workflow & Vibe Coding Learning",
+      "description": "Completed internal and external learning in GenAI, LLMs, AI agents, RAG, vibe coding, Python, machine learning fundamentals, deep learning fundamentals, and spec-driven development. My goal is to apply this learning into practical tools, dashboards, data validation workflows, and automation.",
+      "tools": "GenAI, LLM, Agents, RAG, Python, Spec-Driven Development"
     }
   ],
   "experience": [
@@ -86,19 +86,49 @@
       "period": "Nov 2021 — Dec 2025",
       "role": "Regional Support Team",
       "company": "Grab",
-      "bullets": "Analyzed POI, routing, and map data quality issues across Indonesia.|Investigated driver-submitted voice reports to identify POI inaccuracies, incorrect attributes, map gaps, or routing logic issues.|Collaborated with Driver-Partners, Product, Engineering, Operations, and external map providers.|Prepared map accuracy and issue trend reports to support operational decision-making."
+      "bullets": "Analyzed POI, routing, and map data quality issues across Indonesia.|Investigated driver-submitted reports to identify POI inaccuracies, incorrect attributes, map gaps, or routing logic issues.|Collaborated with Driver-Partners, Product, Engineering, Operations, and external map providers.|Prepared map accuracy and issue trend reports to support operational decision-making.|Participated in internal AI training covering GenAI, LLMs, agents, RAG, vibe coding, and practical AI use cases."
     },
     {
       "period": "Aug 2020 — Jun 2021",
       "role": "Research Assistant",
       "company": "Pusat Penelitian Geografi Terapan",
-      "bullets": "Processed Landsat 8 imagery using ArcMap and supervised classification methods.|Prepared and organized spatial data from multiple research teams for server integration.|Supported technical setup for GIS workstations, servers, and research tools."
+      "bullets": "Supported national priority research on drought model development for sustainable food estate management.|Processed Landsat 8 imagery using ArcMap and supervised classification methods.|Prepared and organized spatial data from multiple research teams for server integration.|Supported technical setup for GIS workstations, servers, and research tools."
     },
     {
       "period": "Mar 2019 — Feb 2020",
       "role": "GIS Analyst",
       "company": "PT Infimap Geospasial",
-      "bullets": "Processed flood data with HEC-GeoRAS and HEC-RAS.|Managed survey planning and data preparation for Grab Street View projects.|Used QGIS and Python-based scripts to support photo cleaning, migration, and deliverable workflows."
+      "bullets": "Processed flood data with HEC-GeoRAS and HEC-RAS.|Managed survey planning and data preparation for Grab Street View projects.|Cleaned location-based GoPro photo data using QGIS.|Used Python-based scripts to support photo migration and deliverable workflows."
+    },
+    {
+      "period": "Feb 2020 — Sept 2020",
+      "role": "Product Management",
+      "company": "PT Maxima Grafis Singhasana",
+      "bullets": "Managed production and procurement of public health materials during COVID-19 response projects.|Coordinated production timeline, item specifications, vendor communication, and delivery preparation.|Handled projects involving cloth masks, handwashing campaign banners, and prevention kit materials."
+    },
+    {
+      "period": "Sept 2018 — Mar 2019",
+      "role": "Product Management",
+      "company": "PT Maxima Grafis Singhasana",
+      "bullets": "Managed procurement and production of public health and community campaign materials.|Supported vendor coordination, production monitoring, and administrative documentation."
+    },
+    {
+      "period": "Feb 2018 — Sept 2018",
+      "role": "GIS Operation Staff",
+      "company": "PT Surveyor Indonesia (Persero)",
+      "bullets": "Digitized PJT II assets from drone-captured imagery.|Inputted and validated asset attributes based on field survey data.|Conducted field surveys to complete asset mapping data."
+    },
+    {
+      "period": "Jul 2017 — Nov 2017",
+      "role": "Data Operator",
+      "company": "PT Sigma Ekspresi",
+      "bullets": "Supported geospatial database migration and services for BIG Network Node project.|Migrated attribute data from KUGI V3 to KUGI V4.|Organized available geospatial data and ran Python scripts to support migration workflows."
+    },
+    {
+      "period": "2015 — 2016",
+      "role": "Academic & Early Project Experience",
+      "company": "Universitas Indonesia / BPN Project",
+      "bullets": "Assisted lecturers in Quantitative Methods, Cartography, and Statistics classes.|Inputted questionnaire data for an employee satisfaction survey project.|Digitized land cover data for Serang, Banten."
     }
   ],
   "skills": [
@@ -166,7 +196,7 @@
   "links": [
     {
       "label": "Email",
-      "url": "mailto:grizzlypradipta26@gmail.com"
+      "url": "mailto:your.email@example.com"
     },
     {
       "label": "LinkedIn",

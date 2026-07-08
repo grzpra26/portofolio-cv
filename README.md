@@ -131,3 +131,11 @@ Good if you want a free public portfolio.
 - This is intentionally not dependent on frameworks like React/Next.js.
 - It is lightweight, fast, and easy to edit.
 - It already includes visual elements: orbit diagram, role switcher, capability chart, metrics, timeline, project cards, and reveal animation.
+
+
+## New in this version
+
+- More general positioning, not tied to one company.
+- Experience section now shows top 3 highlights by default.
+- Button: "See more experience" reveals older experience.
+- Useful for multiple applications across Data Analyst, Location Intelligence, Product/Data Operations, AI-assisted workflow, and Web-adjacent roles.

@@ -6,6 +6,9 @@ const roleDescriptions = {
   web: "I am building toward AI-assisted web and internal tools development for dashboards, forms, and workflow tools."
 };
 
+let showAllExperience = false;
+let cachedExperience = [];
+
 function $(selector) { return document.querySelector(selector); }
 function $all(selector) { return Array.from(document.querySelectorAll(selector)); }
 
@@ -86,18 +89,40 @@ function renderProjects(projects = []) {
 }
 
 function renderExperience(items = []) {
-  $("#experienceTimeline").innerHTML = items.map(item => {
+  cachedExperience = items;
+  const visibleItems = showAllExperience ? items : items.slice(0, 3);
+
+  $("#experienceTimeline").innerHTML = visibleItems.map((item, index) => {
     const bullets = String(item.bullets || "").split("|").map(b => b.trim()).filter(Boolean);
+    const shortBullets = showAllExperience ? bullets : bullets.slice(0, 4);
     return `
-      <article class="timeline-item reveal">
+      <article class="timeline-item reveal ${index > 2 ? "extra-experience" : ""}">
         <div class="timeline-date">${escapeHtml(item.period)}</div>
         <div class="timeline-content">
           <h3>${escapeHtml(item.role)} — ${escapeHtml(item.company)}</h3>
-          <ul>${bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+          <ul>${shortBullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
         </div>
       </article>
     `;
   }).join("");
+
+  const toggle = $("#toggleExperience");
+  if (toggle) {
+    if (items.length <= 3) {
+      toggle.style.display = "none";
+    } else {
+      toggle.style.display = "inline-flex";
+      toggle.textContent = showAllExperience ? "Show less" : `See more experience (${items.length - 3} more)`;
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.12 });
+
+  $all(".timeline-item.reveal").forEach(el => observer.observe(el));
 }
 
 function renderSkills(items = []) {
@@ -191,6 +216,14 @@ function initInteractions() {
       $("#roleDescription").textContent = roleDescriptions[btn.dataset.role] || roleDescriptions.vibe;
     });
   });
+
+  const toggleExperience = $("#toggleExperience");
+  if (toggleExperience) {
+    toggleExperience.addEventListener("click", () => {
+      showAllExperience = !showAllExperience;
+      renderExperience(cachedExperience);
+    });
+  }
 
   const menuButton = $(".menu-button");
   const navLinks = $(".nav-links");
