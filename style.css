@@ -185,47 +185,24 @@ h3 { font-size: 1.22rem; }
 
 .node {
   position: absolute;
+  width: 96px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: 50%;
   font-weight: 850;
+  font-size: 1.05rem;
   color: var(--text);
   border: 1px solid rgba(31, 41, 51, 0.08);
   box-shadow: 0 10px 24px rgba(40, 32, 24, 0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   text-align: center;
-  padding: 0 18px;
 }
 
 .node:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 30px rgba(40, 32, 24, 0.16);
-}
-
-/* Bubble size based on strength */
-.xl {
-  min-width: 124px;
-  height: 124px;
-  font-size: 1.5rem;
-}
-
-.lg {
-  min-width: 106px;
-  height: 106px;
-  font-size: 1.28rem;
-}
-
-.md {
-  min-width: 92px;
-  height: 92px;
-  font-size: 1.08rem;
-}
-
-.sm {
-  min-width: 82px;
-  height: 82px;
-  font-size: 0.98rem;
 }
 
 /* Bubble colors */
@@ -264,14 +241,46 @@ h3 { font-size: 1.22rem; }
   color: #1f2933;
 }
 
-/* Bubble positions */
-.s1 { top: 48px; left: 34px; }      /* GIS */
-.s2 { top: 38px; right: 56px; }     /* POI */
-.s3 { top: 134px; left: 150px; }    /* Product */
-.s4 { top: 214px; right: 44px; }    /* Routing */
-.s5 { bottom: 34px; left: 62px; }   /* Data */
-.s6 { bottom: 46px; right: 154px; } /* Python */
-.s7 { top: 228px; left: 252px; }    /* LLM */
+/* Equal-size bubble positions — no overlap */
+.s1 { top: 42px; left: 42px; }       /* GIS */
+.s2 { top: 42px; right: 42px; }      /* POI */
+.s3 { top: 132px; left: 50%; transform: translateX(-50%); } /* Product */
+.s4 { top: 222px; right: 42px; }     /* Routing */
+.s5 { top: 222px; left: 42px; }      /* Data */
+.s6 { top: 224px; left: 50%; transform: translateX(-108%); } /* Python */
+.s7 { top: 224px; left: 50%; transform: translateX(8%); }     /* LLM */
+
+.s3:hover {
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.s6:hover {
+  transform: translateX(-108%) translateY(-4px);
+}
+
+.s7:hover {
+  transform: translateX(8%) translateY(-4px);
+}
+
+@media (max-width: 420px) {
+  .orbit {
+    height: 330px;
+  }
+
+  .node {
+    width: 82px;
+    height: 82px;
+    font-size: 0.92rem;
+  }
+
+  .s1 { top: 36px; left: 28px; }
+  .s2 { top: 36px; right: 28px; }
+  .s3 { top: 124px; left: 50%; transform: translateX(-50%); }
+  .s4 { top: 216px; right: 28px; }
+  .s5 { top: 216px; left: 28px; }
+  .s6 { top: 216px; left: 50%; transform: translateX(-108%); }
+  .s7 { top: 216px; left: 50%; transform: translateX(8%); }
+}
 
 .role-switcher, .metric-card, .fit-card, .chart-card, .journey-card, .project-card, .timeline-item, .skill-box, .cert-card {
   background: var(--card);

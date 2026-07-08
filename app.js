@@ -1,25 +1,9 @@
 const fallbackUrl = "content.json";
-
-const roleDescriptions = {
-  vibe: "I translate real operational problems into logic, workflows, and AI-assisted prototypes.",
-  data: "I analyze messy operational data, validate patterns, and turn field signals into structured insights.",
-  web: "I am building toward AI-assisted web and internal tools development for dashboards, forms, and workflow tools."
-};
-
-let showAllExperience = false;
-let showAllSkills = false;
-let showAllCertifications = false;
-let cachedExperience = [];
-let cachedSkills = [];
-let cachedCertifications = [];
+const CACHE_KEY = "livePortfolioCmsData";
+const CMS_TIMEOUT_MS = 3500;
 
 function $(selector) { return document.querySelector(selector); }
 function $all(selector) { return Array.from(document.querySelectorAll(selector)); }
-
-function setText(selector, text) {
-  const el = $(selector);
-  if (el && text) el.textContent = text;
-}
 
 function escapeHtml(str = "") {
   return String(str).replace(/[&<>"']/g, m => ({
@@ -31,17 +15,41 @@ function escapeHtml(str = "") {
   }[m]));
 }
 
-async function loadData() {
-  const url = window.CMS_URL && window.CMS_URL.trim() ? window.CMS_URL.trim() : fallbackUrl;
+async function fetchJsonWithTimeout(url, timeoutMs = CMS_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
   try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Failed to load CMS data");
+    const res = await fetch(url, {
+      signal: controller.signal,
+      cache: "no-store"
+    });
+    if (!res.ok) throw new Error(`Failed to load ${url}`);
     return await res.json();
-  } catch (err) {
-    console.warn("Could not load CMS data. Using local fallback.", err);
-    const res = await fetch(fallbackUrl);
-    return await res.json();
+  } finally {
+    clearTimeout(timeout);
   }
+}
+
+async function loadLocalData() {
+  const res = await fetch(fallbackUrl, { cache: "no-store" });
+  if (!res.ok) throw new Error("Failed to load local content.json");
+  return await res.json();
+}
+
+function getCachedCmsData() {
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    return cached ? JSON.parse(cached) : null;
+  } catch (err) {
+    return null;
+  }
+}
+
+function setCachedCmsData(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  } catch (err) {}
 }
 
 function renderProfile(profile) {
@@ -55,9 +63,42 @@ function renderProfile(profile) {
   $all("[data-field='contactText']").forEach(el => el.textContent = profile.contactText || "");
 }
 
+function renderRoleSwitcher(items = []) {
+  const tabs = $("#roleTabs");
+  const desc = $("#roleDescription");
+  if (!tabs || !desc) return;
+
+  const cleanItems = items.length ? items : [
+    {
+      key: "vibe",
+      label: "Vibe Coding",
+      description: "I translate real operational problems into logic, workflows, and AI-assisted prototypes."
+    }
+  ];
+
+  tabs.innerHTML = cleanItems.map((item, index) => `
+    <button class="role-tab ${index === 0 ? "active" : ""}" data-index="${index}">
+      ${escapeHtml(item.label)}
+    </button>
+  `).join("");
+
+  desc.textContent = cleanItems[0]?.description || "";
+
+  $all(".role-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      $all(".role-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const item = cleanItems[Number(btn.dataset.index)];
+      desc.textContent = item?.description || "";
+    });
+  });
+}
+
 function renderMetrics(metrics = []) {
-  $("#metricsGrid").innerHTML = metrics.map(item => `
-    <article class="metric-card reveal">
+  const target = $("#metricsGrid");
+  if (!target) return;
+  target.innerHTML = metrics.map(item => `
+    <article class="metric-card reveal visible">
       <strong>${escapeHtml(item.value)}</strong>
       <h3>${escapeHtml(item.label)}</h3>
       <p>${escapeHtml(item.description)}</p>
@@ -65,55 +106,28 @@ function renderMetrics(metrics = []) {
   `).join("");
 }
 
-
-function renderProofMap(items = []) {
-  const grid = $("#proofMapGrid");
-  if (!grid) return;
-  grid.innerHTML = items.map((item, index) => `
-    <article class="proof-step reveal proof-step-${index + 1}">
-      <div class="proof-head">
-        <div class="proof-icon">${escapeHtml(item.icon || "✦")}</div>
-        <span class="proof-stage">${escapeHtml(item.stage)}</span>
-      </div>
-      <h3>${escapeHtml(item.title)}</h3>
-      <details class="proof-details">
-        <summary>See more</summary>
-        <p>${escapeHtml(item.description)}</p>
-      </details>
-    </article>
-  `).join("");
-}
-
 function renderRoleFit(items = []) {
-  $("#roleFitGrid").innerHTML = items.map((item, index) => `
-    <article class="fit-card reveal fit-card-${index + 1}">
-      <div class="fit-icon">${escapeHtml(item.icon || "✦")}</div>
-      <div class="fit-copy">
-        <h3>${escapeHtml(item.title)}</h3>
-        <p>${escapeHtml(item.description)}</p>
-      </div>
+  const target = $("#roleFitGrid");
+  if (!target) return;
+  target.innerHTML = items.map(item => `
+    <article class="fit-card reveal visible">
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.description)}</p>
     </article>
   `).join("");
 }
 
 function renderProjects(projects = []) {
-  $("#projectList").innerHTML = projects.map((project, index) => {
+  const target = $("#projectList");
+  if (!target) return;
+  target.innerHTML = projects.map(project => {
     const tools = String(project.tools || "").split(",").map(t => t.trim()).filter(Boolean);
     return `
-      <article class="project-card reveal">
+      <article class="project-card reveal visible">
         <div>
           <p class="project-tag">${escapeHtml(project.tag)}</p>
           <h3>${escapeHtml(project.title)}</h3>
           <p>${escapeHtml(project.description)}</p>
-
-          <details class="case-details" ${index === 0 ? "open" : ""}>
-            <summary>Why this matters</summary>
-            <div class="case-grid">
-              <div><strong>Problem</strong><p>${escapeHtml(project.problem)}</p></div>
-              <div><strong>Approach</strong><p>${escapeHtml(project.approach)}</p></div>
-              <div><strong>Evidence</strong><p>${escapeHtml(project.evidence)}</p></div>
-            </div>
-          </details>
         </div>
         <div class="project-meta">
           ${tools.map(tool => `<span>${escapeHtml(tool)}</span>`).join("")}
@@ -124,90 +138,49 @@ function renderProjects(projects = []) {
 }
 
 function renderExperience(items = []) {
-  cachedExperience = items;
-  const defaultCount = window.innerWidth <= 700 ? 2 : 3;
-  const visibleItems = showAllExperience ? items : items.slice(0, defaultCount);
-
-  $("#experienceTimeline").innerHTML = visibleItems.map((item, index) => {
+  const target = $("#experienceTimeline");
+  if (!target) return;
+  target.innerHTML = items.map(item => {
     const bullets = String(item.bullets || "").split("|").map(b => b.trim()).filter(Boolean);
-    const shortBullets = showAllExperience ? bullets : bullets.slice(0, 4);
     return `
-      <article class="timeline-item reveal ${index > 2 ? "extra-experience" : ""}">
+      <article class="timeline-item reveal visible">
         <div class="timeline-date">${escapeHtml(item.period)}</div>
         <div class="timeline-content">
           <h3>${escapeHtml(item.role)} — ${escapeHtml(item.company)}</h3>
-          <ul>${shortBullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+          <ul>${bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
         </div>
       </article>
     `;
   }).join("");
-
-  const toggle = $("#toggleExperience");
-  if (toggle) {
-    if (items.length <= 3) {
-      toggle.style.display = "none";
-    } else {
-      toggle.style.display = "inline-flex";
-      toggle.textContent = showAllExperience ? "Show less" : `See more experience (${items.length - defaultCount} more)`;
-    }
-  }
-
-  observeReveals();
 }
 
 function renderSkills(items = []) {
-  cachedSkills = items;
-  const defaultCount = window.innerWidth <= 700 ? 2 : 4;
-  const visibleItems = showAllSkills ? items : items.slice(0, defaultCount);
-
-  $("#skillsGrid").innerHTML = visibleItems.map(item => `
-    <article class="skill-box reveal">
+  const target = $("#skillsGrid");
+  if (!target) return;
+  target.innerHTML = items.map(item => `
+    <article class="skill-box reveal visible">
       <h3>${escapeHtml(item.category)}</h3>
       <p>${escapeHtml(item.items)}</p>
     </article>
   `).join("");
-
-  const toggle = $("#toggleSkills");
-  if (toggle) {
-    if (items.length <= defaultCount) {
-      toggle.style.display = "none";
-    } else {
-      toggle.style.display = "inline-flex";
-      toggle.textContent = showAllSkills ? "Show less" : `See more skills (${items.length - defaultCount} more)`;
-    }
-  }
-
-  observeReveals();
 }
 
 function renderCertifications(items = []) {
-  cachedCertifications = items;
-  const defaultCount = window.innerWidth <= 700 ? 2 : 3;
-  const visibleItems = showAllCertifications ? items : items.slice(0, defaultCount);
-
-  $("#certificationGrid").innerHTML = visibleItems.map(item => `
-    <article class="cert-card reveal">
+  const target = $("#certificationGrid");
+  if (!target) return;
+  target.innerHTML = items.map(item => `
+    <article class="cert-card reveal visible">
       <h3>${escapeHtml(item.name)}</h3>
       <p>${escapeHtml(item.issuer)} • ${escapeHtml(item.date)}</p>
       <small>Credential: ${escapeHtml(item.credential)}</small>
     </article>
   `).join("");
-
-  const toggle = $("#toggleCertifications");
-  if (toggle) {
-    if (items.length <= defaultCount) {
-      toggle.style.display = "none";
-    } else {
-      toggle.style.display = "inline-flex";
-      toggle.textContent = showAllCertifications ? "Show less" : `See more certifications (${items.length - defaultCount} more)`;
-    }
-  }
-
-  observeReveals();
 }
 
 function renderLinks(items = []) {
-  $("#contactLinks").innerHTML = items.map(item => `
+  const target = $("#contactLinks");
+  if (!target) return;
+  target.innerHTML = items.map(item => `
     <a href="${escapeHtml(item.url)}" target="${String(item.url).startsWith("mailto:") ? "_self" : "_blank"}" rel="noopener">${escapeHtml(item.label)}</a>
   `).join("");
 }
@@ -259,94 +232,6 @@ function drawCapabilityChart(items = []) {
   });
 }
 
-function drawRoleEvidenceChart() {
-  const canvas = $("#roleEvidenceChart");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  const dpr = window.devicePixelRatio || 1;
-  const cssWidth = canvas.clientWidth || 520;
-  const cssHeight = Math.max(300, Math.round(cssWidth * 0.75));
-  canvas.width = cssWidth * dpr;
-  canvas.height = cssHeight * dpr;
-  ctx.scale(dpr, dpr);
-  ctx.clearRect(0, 0, cssWidth, cssHeight);
-
-  const cx = cssWidth / 2;
-  const cy = cssHeight / 2 + 12;
-  const maxR = Math.min(cssWidth, cssHeight) * 0.34;
-
-  const axes = [
-    { label: "Data", value: 90, angle: -Math.PI / 2 },
-    { label: "Ops", value: 85, angle: -Math.PI / 2 + (2 * Math.PI / 5) },
-    { label: "GIS", value: 90, angle: -Math.PI / 2 + (4 * Math.PI / 5) },
-    { label: "AI", value: 65, angle: -Math.PI / 2 + (6 * Math.PI / 5) },
-    { label: "Web", value: 40, angle: -Math.PI / 2 + (8 * Math.PI / 5) }
-  ];
-
-  ctx.strokeStyle = "rgba(31,41,51,0.12)";
-  ctx.lineWidth = 1;
-
-  [0.33, 0.66, 1].forEach(scale => {
-    ctx.beginPath();
-    axes.forEach((axis, i) => {
-      const x = cx + Math.cos(axis.angle) * maxR * scale;
-      const y = cy + Math.sin(axis.angle) * maxR * scale;
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    });
-    ctx.closePath();
-    ctx.stroke();
-  });
-
-  axes.forEach(axis => {
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + Math.cos(axis.angle) * maxR, cy + Math.sin(axis.angle) * maxR);
-    ctx.stroke();
-
-    const lx = cx + Math.cos(axis.angle) * (maxR + 28);
-    const ly = cy + Math.sin(axis.angle) * (maxR + 28);
-    ctx.fillStyle = "#1f2933";
-    ctx.font = "800 13px Inter, system-ui, sans-serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(axis.label, lx, ly);
-  });
-
-  const gradient = ctx.createRadialGradient(cx, cy, 8, cx, cy, maxR);
-  gradient.addColorStop(0, "rgba(177,60,47,0.45)");
-  gradient.addColorStop(1, "rgba(47,111,115,0.28)");
-
-  ctx.beginPath();
-  axes.forEach((axis, i) => {
-    const r = maxR * axis.value / 100;
-    const x = cx + Math.cos(axis.angle) * r;
-    const y = cy + Math.sin(axis.angle) * r;
-    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-  });
-  ctx.closePath();
-  ctx.fillStyle = gradient;
-  ctx.fill();
-  ctx.strokeStyle = "#b13c2f";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  axes.forEach(axis => {
-    const r = maxR * axis.value / 100;
-    const x = cx + Math.cos(axis.angle) * r;
-    const y = cy + Math.sin(axis.angle) * r;
-    ctx.beginPath();
-    ctx.arc(x, y, 4, 0, Math.PI * 2);
-    ctx.fillStyle = "#b13c2f";
-    ctx.fill();
-  });
-
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#657180";
-  ctx.font = "700 12px Inter, system-ui, sans-serif";
-  ctx.fillText("Evidence strength by role area", cx, 20);
-}
-
 function roundRect(ctx, x, y, w, h, r) {
   const radius = Math.min(r, h / 2, w / 2);
   ctx.beginPath();
@@ -358,7 +243,29 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function observeReveals() {
+function renderAll(data) {
+  if (!data) return;
+  renderProfile(data.profile);
+  renderRoleSwitcher(data.roleSwitcher);
+  renderMetrics(data.metrics);
+  renderRoleFit(data.roleFit);
+  renderProjects(data.projects);
+  renderExperience(data.experience);
+  renderSkills(data.skills);
+  renderCertifications(data.certifications);
+  renderLinks(data.links);
+  drawCapabilityChart(data.capabilities);
+  const year = $("#year");
+  if (year) year.textContent = new Date().getFullYear();
+}
+
+function initInteractions() {
+  const menuButton = $(".menu-button");
+  const navLinks = $(".nav-links");
+  if (menuButton && navLinks) {
+    menuButton.addEventListener("click", () => navLinks.classList.toggle("open"));
+  }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add("visible");
@@ -368,71 +275,52 @@ function observeReveals() {
   $all(".reveal").forEach(el => observer.observe(el));
 }
 
-function initInteractions() {
-  $all(".role-tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      $all(".role-tab").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      $("#roleDescription").textContent = roleDescriptions[btn.dataset.role] || roleDescriptions.vibe;
-    });
-  });
+async function updateFromCmsInBackground() {
+  const cmsUrl = window.CMS_URL && window.CMS_URL.trim();
+  if (!cmsUrl) return;
 
-  const toggleExperience = $("#toggleExperience");
-  if (toggleExperience) {
-    toggleExperience.addEventListener("click", () => {
-      showAllExperience = !showAllExperience;
-      renderExperience(cachedExperience);
-    });
+  try {
+    const cmsData = await fetchJsonWithTimeout(cmsUrl, CMS_TIMEOUT_MS);
+    setCachedCmsData(cmsData);
+    renderAll(cmsData);
+  } catch (err) {
+    console.warn("CMS is slow or unavailable. Using cached/local content for now.", err);
   }
-
-  const toggleSkills = $("#toggleSkills");
-  if (toggleSkills) {
-    toggleSkills.addEventListener("click", () => {
-      showAllSkills = !showAllSkills;
-      renderSkills(cachedSkills);
-    });
-  }
-
-  const toggleCertifications = $("#toggleCertifications");
-  if (toggleCertifications) {
-    toggleCertifications.addEventListener("click", () => {
-      showAllCertifications = !showAllCertifications;
-      renderCertifications(cachedCertifications);
-    });
-  }
-
-  const menuButton = $(".menu-button");
-  const navLinks = $(".nav-links");
-  if (menuButton && navLinks) {
-    menuButton.addEventListener("click", () => navLinks.classList.toggle("open"));
-  }
-
-  observeReveals();
 }
 
 async function main() {
-  const data = await loadData();
-  renderProfile(data.profile);
-  renderMetrics(data.metrics);
-  renderRoleFit(data.roleFit);
-  renderProofMap(data.proofMap);
-  renderProjects(data.projects);
-  renderExperience(data.experience);
-  renderSkills(data.skills);
-  renderCertifications(data.certifications);
-  renderLinks(data.links);
-  drawCapabilityChart(data.capabilities);
-  drawRoleEvidenceChart();
-  $("#year").textContent = new Date().getFullYear();
+  const cached = getCachedCmsData();
+
+  if (cached) {
+    renderAll(cached);
+  } else {
+    try {
+      const localData = await loadLocalData();
+      renderAll(localData);
+    } catch (err) {
+      console.warn("Local content failed to load.", err);
+    }
+  }
+
+  updateFromCmsInBackground();
   initInteractions();
 }
 
-window.addEventListener("resize", async () => {
-  try {
-    const data = await loadData();
-    drawCapabilityChart(data.capabilities);
-  drawRoleEvidenceChart();
-  } catch (e) {}
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(async () => {
+    const cached = getCachedCmsData();
+    if (cached) {
+      drawCapabilityChart(cached.capabilities);
+      return;
+    }
+
+    try {
+      const localData = await loadLocalData();
+      drawCapabilityChart(localData.capabilities);
+    } catch (e) {}
+  }, 200);
 });
 
 main();
