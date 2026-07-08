@@ -175,3 +175,19 @@ This version fixes a JavaScript recursion issue in `observeReveals()` that could
 - Role Fit cards now include icons.
 - Working Logic is simplified into icon cards with collapsible “See more”.
 - Added more supergraphics and colorful decorative elements.
+
+
+## Brand palette update
+
+Core palette:
+- #CBCBCB grey
+- #F2F2F2 off-white
+- #174D38 deep green
+- #4D1717 maroon
+
+Supporting accents:
+- black
+- deep blue
+- orange
+
+This version overrides the previous bright purple/blue palette into a more mature, branded, editorial direction.

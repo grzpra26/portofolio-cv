@@ -1,20 +1,33 @@
 * { box-sizing: border-box; }
 
 :root {
-  --bg: #f7f1e8;
-  --text: #1f2933;
-  --muted: #667183;
+  /* Core brand-inspired palette */
+  --grey: #CBCBCB;
+  --offwhite: #F2F2F2;
+  --green: #174D38;
+  --maroon: #4D1717;
+
+  /* Supporting accents */
+  --black: #111111;
+  --deep-blue: #102A43;
+  --orange: #E8832E;
+  --soft-orange: #F3B36E;
+
+  /* System colors */
+  --bg: #F2F2F2;
+  --text: #111111;
+  --muted: #5F6468;
   --card: rgba(255,255,255,0.78);
-  --line: rgba(31,41,51,0.12);
-  --accent: #8f3f8f;
-  --accent2: #2f6fbd;
-  --accent3: #5b6ee1;
-  --accent4: #ef8b3a;
-  --accent5: #ffd8b0;
-  --warm-dark: #8d4e2a;
-  --soft: #eadfce;
-  --dark: #172026;
-  --shadow: 0 24px 70px rgba(50, 40, 26, 0.12);
+  --line: rgba(17,17,17,0.12);
+  --accent: #174D38;
+  --accent2: #102A43;
+  --accent3: #E8832E;
+  --accent4: #4D1717;
+  --accent5: #CBCBCB;
+  --warm-dark: #4D1717;
+  --soft: #CBCBCB;
+  --dark: #111111;
+  --shadow: 0 24px 70px rgba(17, 17, 17, 0.10);
 }
 
 html { scroll-behavior: smooth; }
@@ -23,10 +36,10 @@ body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 15% 10%, rgba(143,63,143,0.16), transparent 30%),
-    radial-gradient(circle at 82% 18%, rgba(47,111,189,0.16), transparent 28%),
-    radial-gradient(circle at 62% 0%, rgba(239,139,58,0.14), transparent 24%),
-    linear-gradient(180deg, #f8f1e8 0%, #f6f4fb 42%, #f3f7fd 100%);
+    radial-gradient(circle at 15% 10%, rgba(23,77,56,0.14), transparent 30%),
+    radial-gradient(circle at 86% 14%, rgba(77,23,23,0.12), transparent 28%),
+    radial-gradient(circle at 62% 0%, rgba(232,131,46,0.14), transparent 24%),
+    linear-gradient(180deg, #F2F2F2 0%, #F7F7F7 38%, #EEF2F4 100%);
   color: var(--text);
   line-height: 1.6;
 }
@@ -1145,5 +1158,266 @@ main section {
     width: 180px;
     height: 180px;
     opacity: 0.30;
+  }
+}
+
+
+/* Brand palette override: grey, off-white, green, maroon, black, deep blue, orange */
+
+.site-header {
+  background: rgba(242, 242, 242, 0.86);
+}
+
+.nav-cta {
+  background: var(--black);
+}
+
+.eyebrow,
+.card-label,
+.project-tag,
+.timeline-date {
+  color: var(--green);
+}
+
+.button.primary {
+  background: linear-gradient(135deg, var(--green), var(--deep-blue));
+  color: white;
+  border-color: transparent;
+}
+
+.button.primary:hover {
+  background: linear-gradient(135deg, #0f3a2a, #0b2035);
+}
+
+.button.secondary {
+  background: rgba(255,255,255,0.78);
+}
+
+.button.secondary:hover {
+  border-color: rgba(232,131,46,0.42);
+  box-shadow: 0 10px 28px rgba(232,131,46,0.12);
+  color: var(--maroon);
+}
+
+.hero {
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  right: 34%;
+  top: 72px;
+  width: 90px;
+  height: 90px;
+  border-radius: 26px;
+  background: rgba(232,131,46,0.12);
+  transform: rotate(14deg);
+  z-index: -1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: -28px;
+  bottom: 34px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 1px solid rgba(23,77,56,0.12);
+  z-index: -1;
+}
+
+.status-strip {
+  background: rgba(255,255,255,0.70);
+}
+
+.pulse {
+  background: var(--orange);
+}
+
+.orbit {
+  background:
+    radial-gradient(circle at 72% 22%, rgba(23,77,56,0.16), transparent 22%),
+    radial-gradient(circle at 18% 76%, rgba(232,131,46,0.16), transparent 22%),
+    linear-gradient(145deg, rgba(255,255,255,0.84), rgba(203,203,203,0.18));
+}
+
+.orbit-center {
+  background: linear-gradient(135deg, var(--black), var(--deep-blue));
+}
+
+.orbit::before,
+.orbit::after {
+  border-color: rgba(23,77,56,0.20);
+}
+
+.node {
+  border-color: rgba(17,17,17,0.10);
+  background: rgba(255,255,255,0.90);
+}
+
+.role-switcher {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(232,131,46,0.10), transparent 32%),
+    linear-gradient(145deg, rgba(255,255,255,0.86), rgba(242,242,242,0.70));
+}
+
+.theme-fit {
+  background: linear-gradient(180deg, rgba(23,77,56,0.075), rgba(242,242,242,0.72));
+}
+
+.theme-proof {
+  background: linear-gradient(180deg, rgba(232,131,46,0.095), rgba(242,242,242,0.70));
+}
+
+.theme-visuals {
+  background: linear-gradient(180deg, rgba(16,42,67,0.075), rgba(203,203,203,0.20));
+}
+
+.theme-projects {
+  background: linear-gradient(180deg, rgba(77,23,23,0.065), rgba(242,242,242,0.72));
+}
+
+.theme-experience {
+  background: linear-gradient(180deg, rgba(23,77,56,0.060), rgba(232,131,46,0.050));
+}
+
+.theme-skills {
+  background: linear-gradient(180deg, rgba(16,42,67,0.065), rgba(242,242,242,0.70));
+}
+
+.theme-certifications {
+  background: linear-gradient(180deg, rgba(203,203,203,0.28), rgba(77,23,23,0.035));
+}
+
+.orb-fit {
+  background: radial-gradient(circle, rgba(23,77,56,0.20), rgba(16,42,67,0.08) 60%, transparent 70%);
+}
+
+.orb-proof {
+  background: radial-gradient(circle, rgba(232,131,46,0.24), rgba(77,23,23,0.06) 60%, transparent 72%);
+}
+
+.orb-visuals {
+  background: radial-gradient(circle, rgba(16,42,67,0.18), rgba(23,77,56,0.07) 60%, transparent 72%);
+}
+
+.orb-projects {
+  background: radial-gradient(circle, rgba(77,23,23,0.16), rgba(232,131,46,0.07) 60%, transparent 72%);
+}
+
+.orb-experience {
+  background: radial-gradient(circle, rgba(23,77,56,0.17), rgba(232,131,46,0.07) 60%, transparent 70%);
+}
+
+.orb-skills {
+  background: radial-gradient(circle, rgba(16,42,67,0.17), rgba(23,77,56,0.07) 60%, transparent 72%);
+}
+
+.orb-certs {
+  background: radial-gradient(circle, rgba(203,203,203,0.36), rgba(77,23,23,0.08) 60%, transparent 72%);
+}
+
+.metric-card:nth-child(1) strong { color: var(--green); }
+.metric-card:nth-child(2) strong { color: var(--orange); }
+.metric-card:nth-child(3) strong { color: var(--deep-blue); }
+
+.fit-card,
+.proof-step,
+.project-card,
+.timeline-item,
+.skill-box,
+.cert-card,
+.chart-card,
+.journey-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(242,242,242,0.62));
+  border-color: rgba(17,17,17,0.10);
+}
+
+.fit-card-1 .fit-icon {
+  background: linear-gradient(135deg, rgba(23,77,56,0.16), rgba(203,203,203,0.24));
+  color: var(--green);
+}
+
+.fit-card-2 .fit-icon {
+  background: linear-gradient(135deg, rgba(232,131,46,0.18), rgba(242,242,242,0.36));
+  color: var(--maroon);
+}
+
+.fit-card-3 .fit-icon {
+  background: linear-gradient(135deg, rgba(16,42,67,0.16), rgba(203,203,203,0.24));
+  color: var(--deep-blue);
+}
+
+.proof-step-1 .proof-icon {
+  background: linear-gradient(135deg, rgba(23,77,56,0.18), rgba(242,242,242,0.32));
+  color: var(--green);
+}
+
+.proof-step-2 .proof-icon {
+  background: linear-gradient(135deg, rgba(16,42,67,0.18), rgba(203,203,203,0.24));
+  color: var(--deep-blue);
+}
+
+.proof-step-3 .proof-icon {
+  background: linear-gradient(135deg, rgba(232,131,46,0.20), rgba(242,242,242,0.32));
+  color: var(--maroon);
+}
+
+.proof-step-4 .proof-icon {
+  background: linear-gradient(135deg, rgba(77,23,23,0.18), rgba(203,203,203,0.22));
+  color: var(--maroon);
+}
+
+.proof-stage {
+  background: rgba(255,255,255,0.74);
+  color: var(--deep-blue);
+}
+
+.proof-details summary {
+  color: var(--green);
+}
+
+.project-meta span:nth-child(odd) {
+  background: rgba(23,77,56,0.07);
+}
+
+.project-meta span:nth-child(even) {
+  background: rgba(232,131,46,0.09);
+}
+
+.case-details summary {
+  color: var(--green);
+}
+
+.cert-card small {
+  background: rgba(16,42,67,0.06);
+}
+
+.contact {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(232,131,46,0.25), transparent 28%),
+    radial-gradient(circle at 18% 80%, rgba(23,77,56,0.24), transparent 34%),
+    linear-gradient(135deg, var(--black), var(--deep-blue) 62%, var(--maroon));
+}
+
+.contact .eyebrow {
+  color: var(--soft-orange);
+}
+
+@media (max-width: 900px) {
+  .hero::before {
+    right: 12px;
+    top: 40px;
+    width: 66px;
+    height: 66px;
+  }
+
+  .hero::after {
+    left: -44px;
+    bottom: 20px;
+    width: 120px;
+    height: 120px;
   }
 }
