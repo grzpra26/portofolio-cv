@@ -210,20 +210,6 @@ function renderRoleFit(items = []) {
   `).join("");
 }
 
-function renderProofMap(items = []) {
-  // Safe fallback: this website version may not have a proof map section in HTML.
-  const target = $("#proofMapGrid");
-  if (!target) return;
-
-  const cleanItems = Array.isArray(items) ? items : [];
-  target.innerHTML = cleanItems.map(item => `
-    <article class="fit-card reveal visible">
-      <h3>${escapeHtml(item.title || item.label || "")}</h3>
-      <p>${escapeHtml(item.description || item.proof || "")}</p>
-    </article>
-  `).join("");
-}
-
 function renderProjects(projects = []) {
   const target = $("#projectList");
   if (!target) return;
@@ -311,57 +297,16 @@ function renderExperienceToggle(totalItems) {
 function renderSkills(items = []) {
   const target = $("#skillsGrid");
   if (!target) return;
-
-  currentSkillItems = Array.isArray(items) ? items : [];
-  const visibleItems = skillsExpanded ? currentSkillItems : currentSkillItems.slice(0, 2);
-
-  target.innerHTML = visibleItems.map(item => `
+  target.innerHTML = items.map(item => `
     <article class="skill-box reveal visible">
-      <h3>${escapeHtml(item.category || item.title || "")}</h3>
-      <p>${escapeHtml(item.items || item.description || "")}</p>
+      <h3>${escapeHtml(item.category)}</h3>
+      <p>${escapeHtml(item.items)}</p>
     </article>
   `).join("");
-
-  renderSkillsToggle(currentSkillItems.length);
 }
 
-function renderSkillsToggle(totalItems) {
-  const grid = $("#skillsGrid");
-  if (!grid) return;
-
-  let wrapper = $("#skillsToggleWrapper");
-
-  if (totalItems <= 2) {
-    if (wrapper) wrapper.remove();
-    return;
-  }
-
-  if (!wrapper) {
-    wrapper = document.createElement("div");
-    wrapper.id = "skillsToggleWrapper";
-    wrapper.className = "experience-toggle-wrapper";
-    grid.insertAdjacentElement("afterend", wrapper);
-  }
-
-  wrapper.innerHTML = `
-    <button class="experience-toggle" type="button">
-      ${skillsExpanded ? "Show less skills" : `See more skills (${totalItems - 2} more)`}
-    </button>
-  `;
-
-  const button = wrapper.querySelector(".experience-toggle");
-  button.addEventListener("click", () => {
-    skillsExpanded = !skillsExpanded;
-    renderSkills(currentSkillItems);
-
-    if (!skillsExpanded) {
-      document.querySelector("#skills")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  });
-}
+let certificationsExpanded = false;
+let currentCertificationItems = [];
 
 function renderCertifications(items = []) {
   const target = $("#certificationGrid");
@@ -485,82 +430,104 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
+
 function normalizeBoolean(value, defaultValue = true) {
   if (value === undefined || value === null || value === "") return defaultValue;
 
   const normalized = String(value).trim().toLowerCase();
 
-  if (["true", "yes", "y", "1", "show", "visible"].includes(normalized)) return true;
-  if (["false", "no", "n", "0", "hide", "hidden"].includes(normalized)) return false;
+  if (["true", "yes", "y", "1", "show", "visible", "on"].includes(normalized)) return true;
+  if (["false", "no", "n", "0", "hide", "hidden", "off"].includes(normalized)) return false;
 
   return defaultValue;
 }
 
 function getSectionConfig(data, key) {
-  const sections = Array.isArray(data?.sections) ? data.sections : [];
-  return sections.find(item =>
-    String(item.section_key || item.key || "").trim() === key
-  );
+  const sections = data?.sections || [];
+  return sections.find(section => {
+    const sectionKey = section.section_key || section.key || section.id || section.name;
+    return String(sectionKey || "").trim() === key;
+  });
 }
 
 function isSectionVisible(data, key, defaultValue = true) {
   const section = getSectionConfig(data, key);
-
-  // Important: if a section row does not exist, keep section visible.
   if (!section) return defaultValue;
 
-  // Supports both `visible` and older `is_visible`.
-  return normalizeBoolean(section.visible ?? section.is_visible, defaultValue);
-}
-
-function setElementVisibility(selector, visible) {
-  document.querySelectorAll(selector).forEach(element => {
-    element.hidden = !visible;
-    element.style.display = visible ? "" : "none";
-  });
+  return normalizeBoolean(
+    section.is_visible ?? section.visible ?? section.show ?? section.enabled,
+    defaultValue
+  );
 }
 
 function applySectionVisibility(data) {
-  const mapping = {
-    profile: "#home",
-    metrics: "#metrics",
-    roleFit: "#fit",
-    proofMap: "#proofMap",
-    capabilities: "#visuals",
-    projects: "#projects",
-    experience: "#experience",
-    skills: "#skills",
-    certifications: "#certifications",
-    links: "#contact",
-    roleSwitcher: ".role-switcher"
-  };
+  const sectionTargets = [
+    { key: "roleSwitcher", selector: ".role-switcher", defaultValue: true },
+    { key: "metrics", selector: "#metrics", defaultValue: true },
+    { key: "roleFit", selector: "#fit", defaultValue: true },
+    { key: "visuals", selector: "#visuals", defaultValue: true },
+    { key: "projects", selector: "#projects", defaultValue: true },
+    { key: "experience", selector: "#experience", defaultValue: true },
+    { key: "skills", selector: "#skills", defaultValue: true },
+    { key: "certifications", selector: "#certifications", defaultValue: true },
+    { key: "contact", selector: "#contact", defaultValue: true }
+  ];
 
-  Object.entries(mapping).forEach(([key, selector]) => {
-    setElementVisibility(selector, isSectionVisible(data, key, true));
+  sectionTargets.forEach(item => {
+    const el = document.querySelector(item.selector);
+    if (!el) return;
+
+    el.style.display = isSectionVisible(data, item.key, item.defaultValue) ? "" : "none";
   });
 }
 
+function applySectionCopy(data) {
+  const sections = data?.sections || [];
+
+  sections.forEach(section => {
+    const key = section.section_key || section.key || section.id || section.name;
+    if (!key) return;
+
+    const rootMap = {
+      metrics: "#metrics",
+      roleFit: "#fit",
+      visuals: "#visuals",
+      projects: "#projects",
+      experience: "#experience",
+      skills: "#skills",
+      certifications: "#certifications",
+      contact: "#contact"
+    };
+
+    const root = document.querySelector(rootMap[key]);
+    if (!root) return;
+
+    const eyebrow = root.querySelector(".eyebrow");
+    const heading = root.querySelector("h2");
+
+    if (eyebrow && section.eyebrow) eyebrow.textContent = section.eyebrow;
+    if (heading && section.title) heading.textContent = section.title;
+  });
+}
+
+
 function renderAll(data) {
   if (!data) return;
-
+  applySectionVisibility(data);
   applyTheme(data.theme);
   renderProfile(data.profile);
   renderRoleSwitcher(data.roleSwitcher);
   renderMetrics(data.metrics);
   renderRoleFit(data.roleFit);
-  renderProofMap(data.proofMap);
   renderProjects(data.projects);
   renderExperience(data.experience);
   renderSkills(data.skills);
   renderCertifications(data.certifications);
   renderLinks(data.links);
   drawCapabilityChart(data.capabilities);
-
+  applySectionCopy(data);
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
-
-  // Apply visibility after rendering so hidden sections do not break rendering.
-  applySectionVisibility(data);
 }
 
 function initInteractions() {
