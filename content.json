@@ -160,6 +160,12 @@
       "visible": "TRUE",
       "order": 10,
       "notes": "Email, LinkedIn, GitHub, etc."
+    },
+    {
+    "section_key": "roleSwitcher",
+    "is_visible": false,
+    "title": "Open to roles",
+    "subtitle": ""
     }
   ],
   "metrics": [
@@ -181,14 +187,14 @@
   ],
   "roleSwitcher": [
     {
-      "key": "vibe",
-      "label": "Vibe Coding",
-      "description": "I translate real operational problems into logic, workflows, and AI-assisted prototypes."
+      "key": "",
+      "label": "",
+      "description": ""
     },
     {
-      "key": "data",
-      "label": "Data Analyst",
-      "description": "I analyze messy operational data, validate patterns, and turn field signals into structured insights."
+      "key": "",
+      "label": "",
+      "description": ""
     },
     {
       "key": "web",
