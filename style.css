@@ -135,6 +135,17 @@ h3 { font-size: 1.22rem; }
   border-color: var(--accent);
 }
 
+.button.tertiary {
+  background: var(--accent2);
+  color: var(--text);
+  border-color: var(--accent2);
+}
+
+.button.tertiary:hover {
+  filter: brightness(0.95);
+  transform: translateY(-2px);
+}
+
 .button.primary:hover { background: #8e3026; }
 .button.secondary, .contact-links a { background: white; }
 
