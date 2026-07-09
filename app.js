@@ -15,6 +15,99 @@ function escapeHtml(str = "") {
   }[m]));
 }
 
+
+function normalizeTheme(themeInput) {
+  if (!themeInput) return {};
+
+  // Preferred content.json format: { primary_color: "#...", ... }
+  if (!Array.isArray(themeInput) && typeof themeInput === "object") {
+    if (themeInput.primary_color || themeInput.background_color || themeInput.text_color) {
+      return themeInput;
+    }
+
+    // Fallback for older Apps Script output that only returns one key-value row.
+    if (themeInput.setting_key && themeInput.value) {
+      return { [String(themeInput.setting_key).trim()]: themeInput.value };
+    }
+
+    return themeInput;
+  }
+
+  // If CMS returns rows, convert setting_key/value into an object.
+  if (Array.isArray(themeInput)) {
+    return themeInput.reduce((acc, row) => {
+      if (row.setting_key) acc[String(row.setting_key).trim()] = row.value;
+      return acc;
+    }, {});
+  }
+
+  return {};
+}
+
+function applyTheme(themeInput) {
+  const theme = normalizeTheme(themeInput);
+  const root = document.documentElement;
+
+  const mapping = {
+    primary_color: "--accent",
+    secondary_color: "--accent2",
+    background_color: "--bg",
+    surface_color: "--card",
+    text_color: "--text",
+    muted_text_color: "--muted",
+    border_color: "--line"
+  };
+
+  Object.entries(mapping).forEach(([key, cssVar]) => {
+    if (theme[key]) root.style.setProperty(cssVar, String(theme[key]).trim());
+  });
+
+  if (theme.font_family) {
+    root.style.setProperty("--font-family", `${String(theme.font_family).trim()}, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`);
+  }
+
+  if (theme.button_radius) {
+    const radius = String(theme.button_radius).trim();
+    root.style.setProperty("--button-radius", radius.endsWith("px") ? radius : `${radius}px`);
+  }
+
+  if (theme.primary_color) {
+    root.style.setProperty("--dark", shadeColor(String(theme.primary_color).trim(), -35));
+    root.style.setProperty("--soft", hexToRgba(String(theme.primary_color).trim(), 0.10));
+  }
+}
+
+function shadeColor(hex, percent) {
+  const clean = hex.replace("#", "");
+  if (clean.length !== 6) return hex;
+
+  const num = parseInt(clean, 16);
+  let r = (num >> 16) + percent;
+  let g = ((num >> 8) & 0x00FF) + percent;
+  let b = (num & 0x0000FF) + percent;
+
+  r = Math.max(Math.min(255, r), 0);
+  g = Math.max(Math.min(255, g), 0);
+  b = Math.max(Math.min(255, b), 0);
+
+  return `#${(b | (g << 8) | (r << 16)).toString(16).padStart(6, "0")}`;
+}
+
+function hexToRgba(hex, alpha) {
+  const clean = hex.replace("#", "");
+  if (clean.length !== 6) return hex;
+  const num = parseInt(clean, 16);
+  const r = num >> 16;
+  const g = (num >> 8) & 0x00FF;
+  const b = num & 0x0000FF;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function getCssVar(name, fallback) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+}
+
+
 async function fetchJsonWithTimeout(url, timeoutMs = CMS_TIMEOUT_MS) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -212,16 +305,63 @@ function renderSkills(items = []) {
   `).join("");
 }
 
+let certificationsExpanded = false;
+let currentCertificationItems = [];
+
 function renderCertifications(items = []) {
   const target = $("#certificationGrid");
   if (!target) return;
-  target.innerHTML = items.map(item => `
+
+  currentCertificationItems = items;
+  const visibleItems = certificationsExpanded ? items : items.slice(0, 3);
+
+  target.innerHTML = visibleItems.map(item => `
     <article class="cert-card reveal visible">
       <h3>${escapeHtml(item.name)}</h3>
       <p>${escapeHtml(item.issuer)} • ${escapeHtml(item.date)}</p>
       <small>Credential: ${escapeHtml(item.credential)}</small>
     </article>
   `).join("");
+
+  renderCertificationToggle(items.length);
+}
+
+function renderCertificationToggle(totalItems) {
+  const grid = $("#certificationGrid");
+  if (!grid) return;
+
+  let wrapper = $("#certificationToggleWrapper");
+
+  if (totalItems <= 3) {
+    if (wrapper) wrapper.remove();
+    return;
+  }
+
+  if (!wrapper) {
+    wrapper = document.createElement("div");
+    wrapper.id = "certificationToggleWrapper";
+    wrapper.className = "certification-toggle-wrapper";
+    grid.insertAdjacentElement("afterend", wrapper);
+  }
+
+  wrapper.innerHTML = `
+    <button class="certification-toggle" type="button">
+      ${certificationsExpanded ? "Show less certifications" : `See more certifications (${totalItems - 3} more)`}
+    </button>
+  `;
+
+  const button = wrapper.querySelector(".certification-toggle");
+  button.addEventListener("click", () => {
+    certificationsExpanded = !certificationsExpanded;
+    renderCertifications(currentCertificationItems);
+
+    if (!certificationsExpanded) {
+      document.querySelector("#certifications")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
 }
 
 function renderLinks(items = []) {
@@ -266,8 +406,8 @@ function drawCapabilityChart(items = []) {
     ctx.fill();
 
     const gradient = ctx.createLinearGradient(padding.left, 0, padding.left + chartW, 0);
-    gradient.addColorStop(0, "#b13c2f");
-    gradient.addColorStop(1, "#2f6f73");
+    gradient.addColorStop(0, getCssVar("--accent", "#2F6B4F"));
+    gradient.addColorStop(1, getCssVar("--accent2", "#D8A84F"));
     ctx.fillStyle = gradient;
     roundRect(ctx, padding.left, y - barH / 2, barW, barH, 999);
     ctx.fill();
@@ -292,6 +432,7 @@ function roundRect(ctx, x, y, w, h, r) {
 
 function renderAll(data) {
   if (!data) return;
+  applyTheme(data.theme);
   renderProfile(data.profile);
   renderRoleSwitcher(data.roleSwitcher);
   renderMetrics(data.metrics);
