@@ -1,6 +1,6 @@
 const fallbackUrl = "content.json";
 const CACHE_KEY = "livePortfolioCmsData";
-const CMS_TIMEOUT_MS = 10000;
+const CMS_TIMEOUT_MS = 5000;
 
 function $(selector) { return document.querySelector(selector); }
 function $all(selector) { return Array.from(document.querySelectorAll(selector)); }
