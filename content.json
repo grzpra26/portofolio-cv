@@ -248,12 +248,12 @@
   ],
   "capabilities": [
     {
-      "label": "Data analysis",
-      "value": 85
-    },
-    {
       "label": "GIS & location intelligence",
       "value": 90
+    },
+    {
+      "label": "Data analysis",
+      "value": 85
     },
     {
       "label": "AI & vibe coding learning",
