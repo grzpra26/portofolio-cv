@@ -297,16 +297,57 @@ function renderExperienceToggle(totalItems) {
 function renderSkills(items = []) {
   const target = $("#skillsGrid");
   if (!target) return;
-  target.innerHTML = items.map(item => `
+
+  currentSkillItems = items;
+  const visibleItems = skillsExpanded ? items : items.slice(0, 2);
+
+  target.innerHTML = visibleItems.map(item => `
     <article class="skill-box reveal visible">
       <h3>${escapeHtml(item.category)}</h3>
       <p>${escapeHtml(item.items)}</p>
     </article>
   `).join("");
+
+  renderSkillsToggle(items.length);
 }
 
-let certificationsExpanded = false;
-let currentCertificationItems = [];
+function renderSkillsToggle(totalItems) {
+  const grid = $("#skillsGrid");
+  if (!grid) return;
+
+  let wrapper = $("#skillsToggleWrapper");
+
+  if (totalItems <= 2) {
+    if (wrapper) wrapper.remove();
+    return;
+  }
+
+  if (!wrapper) {
+    wrapper = document.createElement("div");
+    wrapper.id = "skillsToggleWrapper";
+    wrapper.className = "experience-toggle-wrapper";
+    grid.insertAdjacentElement("afterend", wrapper);
+  }
+
+  wrapper.innerHTML = `
+    <button class="experience-toggle" type="button">
+      ${skillsExpanded ? "Show less skills" : `See more skills (${totalItems - 2} more)`}
+    </button>
+  `;
+
+  const button = wrapper.querySelector(".experience-toggle");
+  button.addEventListener("click", () => {
+    skillsExpanded = !skillsExpanded;
+    renderSkills(currentSkillItems);
+
+    if (!skillsExpanded) {
+      document.querySelector("#skills")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
+}
 
 function renderCertifications(items = []) {
   const target = $("#certificationGrid");
@@ -430,8 +471,59 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
+function normalizeBoolean(value, defaultValue = true) {
+  if (value === undefined || value === null || value === "") return defaultValue;
+
+  const normalized = String(value).trim().toLowerCase();
+
+  if (["true", "yes", "y", "1", "show", "visible"].includes(normalized)) return true;
+  if (["false", "no", "n", "0", "hide", "hidden"].includes(normalized)) return false;
+
+  return defaultValue;
+}
+
+function getSectionConfig(data, key) {
+  const sections = data?.sections || [];
+  return sections.find(item =>
+    String(item.section_key || item.key || "").trim() === key
+  );
+}
+
+function isSectionVisible(data, key, defaultValue = true) {
+  const section = getSectionConfig(data, key);
+  if (!section) return defaultValue;
+  return normalizeBoolean(section.visible ?? section.is_visible, defaultValue);
+}
+
+function setElementVisibility(selector, visible) {
+  document.querySelectorAll(selector).forEach(element => {
+    element.style.display = visible ? "" : "none";
+  });
+}
+
+function applySectionVisibility(data) {
+  const mapping = {
+    profile: "#home",
+    metrics: "#metrics",
+    roleFit: "#fit",
+    proofMap: "#proofMap",
+    capabilities: "#visuals",
+    projects: "#projects",
+    experience: "#experience",
+    skills: "#skills",
+    certifications: "#certifications",
+    links: "#contact",
+    roleSwitcher: ".role-switcher"
+  };
+
+  Object.entries(mapping).forEach(([key, selector]) => {
+    setElementVisibility(selector, isSectionVisible(data, key, true));
+  });
+}
+
 function renderAll(data) {
   if (!data) return;
+  applySectionVisibility(data);
   applyTheme(data.theme);
   renderProfile(data.profile);
   renderRoleSwitcher(data.roleSwitcher);
