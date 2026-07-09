@@ -1,6 +1,6 @@
 const fallbackUrl = "content.json";
 const CACHE_KEY = "livePortfolioCmsData";
-const CMS_TIMEOUT_MS = 3500;
+const CMS_TIMEOUT_MS = 10000;
 
 function $(selector) { return document.querySelector(selector); }
 function $all(selector) { return Array.from(document.querySelectorAll(selector)); }
@@ -108,12 +108,24 @@ function getCssVar(name, fallback) {
 }
 
 
+
+function withCacheBuster(url) {
+  try {
+    const parsed = new URL(url);
+    parsed.searchParams.set("_t", Date.now().toString());
+    return parsed.toString();
+  } catch (err) {
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}_t=${Date.now()}`;
+  }
+}
+
 async function fetchJsonWithTimeout(url, timeoutMs = CMS_TIMEOUT_MS) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const res = await fetch(url, {
+    const res = await fetch(withCacheBuster(url), {
       signal: controller.signal,
       cache: "no-store"
     });
@@ -294,62 +306,15 @@ function renderExperienceToggle(totalItems) {
   });
 }
 
-let skillsExpanded = false;
-let currentSkillItems = [];
-
 function renderSkills(items = []) {
   const target = $("#skillsGrid");
   if (!target) return;
-
-  currentSkillItems = Array.isArray(items) ? items : [];
-  const visibleItems = skillsExpanded ? currentSkillItems : currentSkillItems.slice(0, 2);
-
-  target.innerHTML = visibleItems.map(item => `
+  target.innerHTML = items.map(item => `
     <article class="skill-box reveal visible">
       <h3>${escapeHtml(item.category)}</h3>
       <p>${escapeHtml(item.items)}</p>
     </article>
   `).join("");
-
-  renderSkillsToggle(currentSkillItems.length);
-}
-
-function renderSkillsToggle(totalItems) {
-  const grid = $("#skillsGrid");
-  if (!grid) return;
-
-  let wrapper = $("#skillsToggleWrapper");
-
-  if (totalItems <= 2) {
-    if (wrapper) wrapper.remove();
-    return;
-  }
-
-  if (!wrapper) {
-    wrapper = document.createElement("div");
-    wrapper.id = "skillsToggleWrapper";
-    wrapper.className = "experience-toggle-wrapper";
-    grid.insertAdjacentElement("afterend", wrapper);
-  }
-
-  wrapper.innerHTML = `
-    <button class="experience-toggle" type="button">
-      ${skillsExpanded ? "Show less skills" : `See more skills (${totalItems - 2} more)`}
-    </button>
-  `;
-
-  const button = wrapper.querySelector(".experience-toggle");
-  button.addEventListener("click", () => {
-    skillsExpanded = !skillsExpanded;
-    renderSkills(currentSkillItems);
-
-    if (!skillsExpanded) {
-      document.querySelector("#skills")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  });
 }
 
 let certificationsExpanded = false;
@@ -601,26 +566,30 @@ async function updateFromCmsInBackground() {
     const cmsData = await fetchJsonWithTimeout(cmsUrl, CMS_TIMEOUT_MS);
     setCachedCmsData(cmsData);
     renderAll(cmsData);
+    console.info("Portfolio updated from Google Sheet CMS.");
   } catch (err) {
     console.warn("CMS is slow or unavailable. Using cached/local content for now.", err);
   }
 }
 
 async function main() {
-  const cached = getCachedCmsData();
+  // 1. Always render content.json first so the page appears quickly.
+  try {
+    const localData = await loadLocalData();
+    renderAll(localData);
+  } catch (err) {
+    console.warn("Local content failed to load. Trying cached CMS data.", err);
 
-  if (cached) {
-    renderAll(cached);
-  } else {
-    try {
-      const localData = await loadLocalData();
-      renderAll(localData);
-    } catch (err) {
-      console.warn("Local content failed to load.", err);
+    const cached = getCachedCmsData();
+    if (cached) {
+      renderAll(cached);
     }
   }
 
+  // 2. Then always fetch Google Sheet CMS in the background.
+  // If CMS succeeds, it will override content.json and update the page.
   updateFromCmsInBackground();
+
   initInteractions();
 }
 
