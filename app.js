@@ -294,15 +294,62 @@ function renderExperienceToggle(totalItems) {
   });
 }
 
+let skillsExpanded = false;
+let currentSkillItems = [];
+
 function renderSkills(items = []) {
   const target = $("#skillsGrid");
   if (!target) return;
-  target.innerHTML = items.map(item => `
+
+  currentSkillItems = Array.isArray(items) ? items : [];
+  const visibleItems = skillsExpanded ? currentSkillItems : currentSkillItems.slice(0, 2);
+
+  target.innerHTML = visibleItems.map(item => `
     <article class="skill-box reveal visible">
       <h3>${escapeHtml(item.category)}</h3>
       <p>${escapeHtml(item.items)}</p>
     </article>
   `).join("");
+
+  renderSkillsToggle(currentSkillItems.length);
+}
+
+function renderSkillsToggle(totalItems) {
+  const grid = $("#skillsGrid");
+  if (!grid) return;
+
+  let wrapper = $("#skillsToggleWrapper");
+
+  if (totalItems <= 2) {
+    if (wrapper) wrapper.remove();
+    return;
+  }
+
+  if (!wrapper) {
+    wrapper = document.createElement("div");
+    wrapper.id = "skillsToggleWrapper";
+    wrapper.className = "experience-toggle-wrapper";
+    grid.insertAdjacentElement("afterend", wrapper);
+  }
+
+  wrapper.innerHTML = `
+    <button class="experience-toggle" type="button">
+      ${skillsExpanded ? "Show less skills" : `See more skills (${totalItems - 2} more)`}
+    </button>
+  `;
+
+  const button = wrapper.querySelector(".experience-toggle");
+  button.addEventListener("click", () => {
+    skillsExpanded = !skillsExpanded;
+    renderSkills(currentSkillItems);
+
+    if (!skillsExpanded) {
+      document.querySelector("#skills")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
 }
 
 let certificationsExpanded = false;
