@@ -163,9 +163,10 @@
     },
     {
     "section_key": "roleSwitcher",
-    "is_visible": false,
-    "title": "Open to roles",
-    "subtitle": ""
+    "visible": "FALSE",
+    "label": "Open to roles",
+    "order": 11, 
+    "notes": ""
     }
   ],
   "metrics": [
